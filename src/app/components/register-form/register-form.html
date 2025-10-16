@@ -1,0 +1,93 @@
+<app-header></app-header>
+<div class="background-image">
+<div class="register-container">
+    <h1>Register</h1>
+    <!-- <p class="subtitle">Register now for appointment</p> -->
+
+    <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+      <div class="form-grid">
+        <!-- Column 1 -->
+        <div class="form-column">
+          <div class="form-group">
+            <label for="firstName">FirstName</label>
+            <i class="fas fa-user"></i>
+            <input type="text" id="firstName" name="firstName" [(ngModel)]="formData.firstName" placeholder="Enter Your First Name" required>
+          </div>
+
+          <div class="form-group">
+            <label for="lastName">LastName</label>
+            <i class="fas fa-user"></i>
+            <input type="text" id="lastName" name="lastName" [(ngModel)]="formData.lastName" placeholder="Enter Your Last Name" required>
+          </div>
+
+          <div class="form-group">
+            <label for="dob">Date of Birth</label>
+            <i class="fas fa-calendar-alt"></i>
+            <input type="date" id="dob" name="dob" [(ngModel)]="formData.dob" placeholder="dd-mm-yyyy" required>
+          </div>
+
+          <div class="form-group">
+            <label for="gender">Gender</label>
+            <i class="fas fa-venus-mars"></i>
+            <select id="gender" name="gender" [(ngModel)]="formData.gender" required>
+              <option value="" disabled selected>Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Others">Others</option>
+            </select>
+          </div>
+  <div class="form-group">
+          <label for="role">Role</label>
+          <i class="fas fa-user-tag"></i>
+  <select id="role" name="role" [(ngModel)]="formData.role" required>
+    <option value="" disabled selected>Select Role</option>
+    <option value="Doctor">Doctor</option>
+    <option value="Patient">Patient</option>
+    <option value="Admin">Admin</option>
+  </select>
+  </div>
+        </div>
+
+        
+        <div class="form-column">
+          <div class="form-group">
+            <label for="address">Address</label>
+            <i class="fas fa-map-marker-alt"></i>
+            <input type="text" id="address" name="address" [(ngModel)]="formData.address" placeholder="Address" required>
+          </div>
+
+          <div class="form-group">
+            <label for="phoneNo">Phone No</label>
+            <i class="fas fa-phone"></i>
+            <input type="text" id="phoneNo" name="phoneNo" [(ngModel)]="formData.phoneNo" placeholder="Phone Number" required>
+          </div>
+
+          <div class="form-group">
+            <label for="altNo">Alt Phone No</label>
+            <i class="fas fa-phone"></i>
+            
+<input type="text"  id="altNo"  name="altNo"  [(ngModel)]="formData.altNo"  placeholder="Alternate Phone Number" required/>
+
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <i class="fas fa-envelope"></i>
+            <input type="email" id="email" name="email" [(ngModel)]="formData.email" placeholder="Enter your Email" required>
+          </div>
+
+      <div class="form-group input-icon">
+    <label for="password"><i class="fas fa-lock"></i>Password</label>
+    <input type="password" id="password" name="password" [(ngModel)]="formData.password" placeholder="Password" required>
+  </div>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button type="submit" [disabled]="!registerForm.valid">Submit</button>
+      </div>
+    </form>
+
+    <div *ngIf="showToast" class="toast">✅ Successfully added!</div>
+  </div>
+</div>

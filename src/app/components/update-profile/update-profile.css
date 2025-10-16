@@ -1,0 +1,77 @@
+.profile-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+h2 {
+  text-align: center;
+  color: #1976d2;
+  margin-bottom: 30px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+input,
+select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.button-group {
+  text-align: center;
+  margin-top: 30px;
+}
+
+button {
+  background-color: #1976d2;
+  color: white;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #1565c0;
+}
+input[readonly] {
+  background-color: #e9ecef;
+  cursor: not-allowed;
+}
+.background-image {
+  background-image: url('https://evenica.com/wp-content/uploads/2023/01/Evenica_Healthcare.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 10px 140px;
+  border-radius: 7px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  max-width: 1000px;
+  margin: 0px auto;
+  backdrop-filter: blur(4px); /* Optional: adds a frosted glass effect */
+}

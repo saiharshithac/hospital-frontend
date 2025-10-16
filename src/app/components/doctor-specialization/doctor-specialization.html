@@ -1,0 +1,36 @@
+<app-header></app-header>
+<div class="page-container">
+  <!-- Left side image -->
+  <div class="image-section">
+    <img src="../../../assets/Frame 23.png" alt="docotrimage">
+  </div>
+
+  <!-- Right side form -->
+  <div class="form-section">
+    <div class="container">
+      <h2>Medical Specialization</h2>
+      <p>Tell us about your medical expertise</p>
+
+      <form #specializationForm="ngForm" (ngSubmit)="onSubmit(specializationForm)">
+        <div class="form-group">
+          
+<label for="personId">Person ID</label>
+          <input type="text" id="personId" name="personId" [(ngModel)]="formData.personId" readonly />
+
+        </div>
+
+        <div class="form-group">
+          <label for="speciality">Speciality</label>
+          <input type="text" id="speciality" name="speciality" [(ngModel)]="formData.speciality" required />
+        </div>
+
+        <div class="form-group">
+          <label for="yearsOfReg">Years of Registration</label>
+          <input type="text" id="yearsOfReg" name="yearsOfReg" [(ngModel)]="formData.yearsOfReg" required />
+        </div>
+
+        <button type="submit" [disabled]="!specializationForm.valid">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
