@@ -16,7 +16,9 @@ export class AppointmentNotifications implements OnInit {
   constructor(private notificationService: NotificationService) {}
 
   ngOnInit(): void {
-    this.notificationService.getNotifications().subscribe({
+    const personId = '1';
+    this.notificationService.getNotifications(personId).subscribe({
+      
       next: (data) => {
         console.log('Received notifications:', data);
         this.notifications = data?.$values ?? []; 
