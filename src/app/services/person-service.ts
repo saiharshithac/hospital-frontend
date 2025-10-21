@@ -14,13 +14,13 @@ export class PersonService {
     return this.http.post(`${this.apiUrl}/RegisterNewPerson`, personData);
   }
 
-validateUser(username: string, password: string): Observable<any> {
-    const body = {
-      email: username,
-      password: password
-    };
-    return this.http.post<any>(this.apiUrl, body);
-  }
+ validateUser(details: { username: string; password: string }): Observable<any> {
+  const body = {
+    email: details.username,
+    password: details.password
+  };
+  return this.http.post<any>(`${this.apiUrl}/login`, body);
+}
 
   getAllPersons(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/GetAllPersons`);
