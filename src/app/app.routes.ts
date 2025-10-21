@@ -16,6 +16,10 @@ import { AppointmentNotifications } from './components/appointment-notifications
 
 export const routes: Routes = [
     {
+        path: '',
+        component: Homepage
+    },
+    {
         path: 'doctor',
         component:DoctorSpecialization
     },
