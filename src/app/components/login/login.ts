@@ -1,29 +1,33 @@
 import { Component } from '@angular/core';
 import { PersonService } from '../../services/person-service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-
+import { Header } from "../../header/header";
+ 
 @Component({
   selector: 'app-login',
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule, Header, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
 export class Login {
-  username: string = '';
-  password: string = '';
+  details={
+    username:'',
+    password:''
+  }
+ 
   errorMessage: string = '';
-
+ 
   constructor(private loginService: PersonService, private router: Router) {}
-
-  onLogin(form: NgForm) {
+ 
+  onLogin(form:NgForm) {
     if (form.valid) {
-      this.loginService.validateUser(this.username, this.password).subscribe({
+      this.loginService.validateUser(this.details).subscribe({
         next: (response) => {
           console.log('Successfully logged in', response);
           localStorage.setItem('token', response.token);
-          this.router.navigate(['/dashboard']);
+          localStorage.setItem('personId', response.personId.toString());
+          this.router.navigate(['/register']);
         },
         error: (err) => {
           console.error('Login failed', err);
@@ -32,4 +36,5 @@ export class Login {
       });
     }
   }
+ 
 }
