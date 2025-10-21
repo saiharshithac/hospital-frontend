@@ -12,6 +12,7 @@ import { Doctors } from './components/doctors/doctors';
 import { Homepage } from './components/homepage/homepage';
 import { Aboutus } from './components/aboutus/aboutus';
 import { AppointmentNotifications } from './components/appointment-notifications/appointment-notifications';
+import { Login } from './components/login/login';
 
 
 export const routes: Routes = [
@@ -64,5 +65,9 @@ export const routes: Routes = [
     {
         path:"appointment-notifications",
         component:AppointmentNotifications
+    },
+    {
+        path: 'login',
+        component: Login
     }
 ];
