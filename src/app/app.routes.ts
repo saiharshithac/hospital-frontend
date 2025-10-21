@@ -9,6 +9,9 @@ import { Header } from './header/header';
 import { DoctorsDisplay } from './components/doctors-display/doctors-display';
 import { Appointment } from './components/appointment/appointment';
 import { Doctors } from './components/doctors/doctors';
+import { Homepage } from './components/homepage/homepage';
+import { Aboutus } from './components/aboutus/aboutus';
+import { AppointmentNotifications } from './components/appointment-notifications/appointment-notifications';
 
 
 export const routes: Routes = [
@@ -45,5 +48,17 @@ export const routes: Routes = [
     {
         path:'',
         component:Header
+    },
+    {
+        path:"homepage",
+        component:Homepage
+    },
+    {
+        path:"aboutus",
+        component:Aboutus
+    },
+    {
+        path:"appointment-notifications",
+        component:AppointmentNotifications
     }
 ];
