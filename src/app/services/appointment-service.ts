@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AppointmentService {
-  private apiUrl = 'https://localhost:7270/api/Notification/getAllNotifications';
+  private apiUrl = 'https://localhost:7270/api';
   constructor(private http: HttpClient) {}
 
   createAppointments(
