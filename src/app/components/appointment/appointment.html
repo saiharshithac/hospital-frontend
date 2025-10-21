@@ -1,0 +1,29 @@
+<app-header></app-header>
+<div class="appointment-view">
+    <div class = "appointment">
+        <h2>{{ doctor.firstName}} {{doctor.lastName}}</h2>
+        <p>{{ doctor.email }}</p>
+        <p>{{doctor.gender}}</p>
+        <p>{{doctors.speciality}}</p>
+        <p>{{ doctors.yearsOfReg }} years of experience</p>
+        <p>Location: {{ doctor.address }}</p>
+               
+        
+        <h3>Select Appointment Date</h3>
+        <input type="date" [(ngModel)]="selectedDate" [min]="minDate" class="date-input" />
+        
+        <h3>Available time slots</h3>
+        <div class = "slots">
+        <button 
+        *ngFor = "let item of timeSlots?.$values" 
+        [class.selected]="selectTime === item.timeSlotId"
+        (click)="selectTime(item.timeSlotId)"
+        class = "slots button">
+             {{item.startTime}} 
+        </button>
+        </div>
+        
+        <br /><br />
+        <button class="confirm-btn" (click)="confirmAppointment()" [disabled]="!selectedTime || !selectedDate">Confirm Appointment</button>
+    </div>
+</div>

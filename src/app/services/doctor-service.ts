@@ -19,7 +19,11 @@ export class DoctorService {
   addSpeciality(doctorId: number, dto: any):Observable<any> {
   const url = `${this.apiUrl}/addSpeciality/${doctorId}`;
   return this.http.post(url, dto);
+  }
+
+  GetDoctorByPersonId(personId: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/GetDoctorByPersonId?personid=${personId}`);
+  }
 
   
-}
 }
