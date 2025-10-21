@@ -8,31 +8,40 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-doctors',
   standalone: true,
-  imports: [FormsModule, CommonModule,Header],
+  imports: [FormsModule, CommonModule, Header],
   templateUrl: './doctors.html',
-  styleUrls: ['./doctors.css']
+  styleUrls: ['./doctors.css'],
 })
 export class Doctors {
   selectedDoctorId: number | null = null;
   selectDoctor(id: number): void {
     this.selectedDoctorId = id;
     console.log('Selected Doctor ID:', id);
-    
+
     this.router.navigate(['/appointment'], { queryParams: { personid: id } });
     console.log('Navigating to appointment with personId:', id);
   }
-  searchTerm: string = ''; 
-  doctors:any[]=[];
-  constructor(private personService:PersonService, private router:Router){
-      this.personService.getPersonDetailsByRole('Doctor').subscribe({
-        next:(data)=>{
-          this.doctors=data.$values;
-          console.log('Doctors data loaded:',this.doctors);
-        },
-        error:(error)=>{
-          console.error('Error loading doctors data:',error);
-        }
-      });
-    } 
+  searchTerm: string = '';
+  doctors: any[] = [];
+  DoctorsBySpeciality: any[] = [];
+  constructor(private personService: PersonService, private router: Router) {
+    this.personService.getPersonDetailsByRole('Doctor').subscribe({
+      next: (data) => {
+        this.doctors = data.$values;
+        this.DoctorsBySpeciality = [...this.doctors];
+        console.log('Doctors data loaded:', this.doctors);
+      },
+      error: (error) => {
+        console.error('Error loading doctors data:', error);
+      },
+    });
+  }
+  searchBySpeciality(): void {
+    const term = this.searchTerm;
+    if (term === '') {
+      this.DoctorsBySpeciality = [...this.doctors];
+    } else {
+      this.DoctorsBySpeciality = this.doctors.filter((doctor) => doctor.speciality.includes(term));
+    }
+  }
 }
-

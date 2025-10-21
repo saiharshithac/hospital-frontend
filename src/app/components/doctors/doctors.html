@@ -1,11 +1,12 @@
 <app-header></app-header>
 <div class="dropdown-container">
 <input type="text" class="specialty-input" placeholder="Search by specialty" [(ngModel)]="searchTerm">
-<button type="submit">Search</button>
+<button type="submit" (click) = "searchBySpeciality()">Search</button>
 </div>
 <div class="main-container">    
     <section class="results">
-      @for(doctor of doctors; track doctor.doctorid) {
+      <!-- @for(doctor of doctors; track doctor.doctorid) { -->
+       @for(doctor of DoctorsBySpeciality; track doctor.doctorid) {
         <div class="doctor-card">
           
             <h3>{{ doctor.firstName }} {{ doctor.lastName }} </h3>
