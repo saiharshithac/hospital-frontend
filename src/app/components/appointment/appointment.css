@@ -1,0 +1,50 @@
+.appointment-view{
+    background-image: url('https://schedule.cc/images/blog/appointment-scheduling-solution.png?v=1675249796072659492');
+}
+.appointment{
+    max-width: 500px;
+    margin: 40px 80px;
+    padding: 20px;
+    background-color: #fafafa;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, Helvetica, sans-serif;
+}
+.date-input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.slots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin:15px 0
+}
+.slots button {
+    flex: 1 1 calc(33.333% - 8px);
+    padding: 8px 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.slots button:focus {
+  background-color: #6ab7f7;
+}
+.confirm-btn{
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+.confirm-btn:hover {
+    background-color: #0056b3;
+}

@@ -22,10 +22,15 @@ export class DoctorSpecialization {
   constructor(private router:Router,private doct:DoctorService,private route:ActivatedRoute) {}
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      this.formData.personId = params['id'] || '';
-    });
-  }
+  this.route.queryParams.subscribe(params => {
+    const id = params['id'];
+    if (id) {
+      this.formData.personId = id;
+    } else {
+      console.warn('No person ID found in query params');
+    }
+  });
+}
 
   onSubmit(form: NgForm) {
     if (form.valid) {
