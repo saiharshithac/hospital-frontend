@@ -1,0 +1,32 @@
+
+<div class="container">
+  <div class="circle-shape"></div>
+  <div class="square-shape"></div>
+  <div class="left">
+    <img src="../../../assets/Doc-img copy.jpg" alt="Doctor">
+  
+  </div>
+  <div class="right">
+    <div class="card">
+      <h2>Login</h2>
+   <form (ngSubmit)="onLogin(loginForm)" #loginForm="ngForm">
+        <div class="input-group">
+          <i class="fas fa-envelope"></i>
+          <!-- <input type="email" placeholder="Enter Email"[(ngModel)]="username" required /> -->
+           <input type="email" name="email" placeholder="Enter Email" [(ngModel)]="username" required />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+           <input type="password" name="password" placeholder="Enter Password" [(ngModel)]="password" required />
+        </div>
+          <div class="login-links">
+       <p> Don't have an account? <a> Register</a></p>
+      </div>
+        <button>Login</button>
+        
+        </form>
+    </div>
+    </div>
+  </div>
+
+
