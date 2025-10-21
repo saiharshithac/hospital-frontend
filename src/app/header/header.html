@@ -1,42 +1,39 @@
 <header class="header-container">
   <nav class="navbar">
     <div class="nav-left">
-      <a routerLink="/" class="home-image-link">
-  <img class="home-image" src="../../assets/Screenshot 2025-10-14 211729.png" alt="home">
-</a>
+      <a routerLink="/homepage" class="home-image-link">
+        <img class="home-image" src="../../assets/Screenshot 2025-10-14 211729.png" alt="home" />
+      </a>
       <span class="app-title">CareNow</span>
     </div>
-    
+
     <ul class="nav-links">
       <!-- <li><a routerLink="/forms">Form</a></li> -->
-      <li><a routerLink="/patient">Home</a></li>
-      <li><a routerLink="/services">About Us</a></li>
+      <li><a routerLink="/homepage">Home</a></li>
+      <li><a routerLink="/aboutus">About Us</a></li>
       <li><a routerLink="/doctor-display">Doctors</a></li>
       <li><a routerLink="/register">Register</a></li>
-      
+
       <!-- <li *ngIf="isLoggedIn">
         <a routerLink="/notifications" class="icon-link" title="Notifications" style="position: relative;">
           <i class="fas fa-bell"></i>
           <span *ngIf="hasNewNotifications" class="notification-dot"></span>
         </a>
       </li> -->
-      
+
       <li>
         <button class="appointment-btn" routerLink="/doctor">Appointment</button>
       </li>
       <li>
-        <a routerLink="/doctor" class="icon-link" title="Notifications">
+        <a routerLink="/appointment-notifications" class="icon-link" title="Notifications">
           <i class="fas fa-bell"></i>
         </a>
       </li>
       <li>
-  <a routerLink="/update" class="profile-icon" title="Profile">
-    <i class="fas fa-user-circle"></i>
-  </a>
-</li>
+        <a routerLink="/update" class="profile-icon" title="Profile">
+          <i class="fas fa-user-circle"></i>
+        </a>
+      </li>
     </ul>
   </nav>
 </header>
-
-
-

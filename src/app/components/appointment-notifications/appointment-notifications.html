@@ -1,0 +1,14 @@
+<app-header></app-header>
+<div class="notification-wrapper">
+  <div class="notification-header">
+    <h2>🔔 Appointment Notifications</h2>
+  </div>
+
+  <ul class="notification-list">
+    <li *ngFor="let notification of notifications" [class.read]="notification.read">
+      <div class="notification-card">
+        <p>{{ notification.message }}</p>
+      </div>
+    </li>
+  </ul>
+</div>
