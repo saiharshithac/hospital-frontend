@@ -18,4 +18,11 @@ export class AppointmentService {
     const url = `${this.apiUrl}/createAppointments?TimeSlotId=${TimeslotId}&AppointmentDate=${appointmentDate}&DoctorId=${doctorId}&PatientId=${personId}&Status=${status}`;
     return this.http.post(url, null);
   }
+
+  GetAppointmentsByPersonId(personId: number) {
+    return this.http.get(
+      `${this.apiUrl}/getAppointmentsByPersonId/${personId}`
+    );
+  }
+  
 }
