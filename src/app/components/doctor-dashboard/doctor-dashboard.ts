@@ -18,6 +18,7 @@ export class DoctorDashboard implements OnInit {
   selectedAppointmentId: any = null;
   activeSection: string = 'appointments';
   patients: any = null;
+  persons: any = null;
 
   constructor(
     private personService: PersonService,
@@ -27,10 +28,11 @@ export class DoctorDashboard implements OnInit {
 
   ngOnInit(): void {
   this.route.queryParams.subscribe(params => {
-    this.doctorId = +params['doctorId'] || 1;
+    this.doctorId = params['personId'] ? Number(params['personId']) : null;
       console.log('Doctor Dashboard doctorId:', this.doctorId);
     if (this.doctorId !== null) {
     this.loadAppointmentDetails(this.doctorId!);
+    this.loadPersonDetails(this.doctorId!);
     }
   });
 }
@@ -57,6 +59,14 @@ export class DoctorDashboard implements OnInit {
         }
       }); 
     }
+  }
+  loadPersonDetails(personId: number) {
+    this.personService.getPersonById(personId).subscribe({
+      next: (data) => {
+        console.log('Person details loaded:', data);
+        this.persons = data;
+      }
+    });
   }
   showSection(section: string): void {
     this.activeSection = section;

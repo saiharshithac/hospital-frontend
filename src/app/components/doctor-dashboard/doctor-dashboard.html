@@ -9,7 +9,6 @@
       <li [class.active]="activeSection === 'patients'" (click)="showSection('patients')">
         <i class="fa fa-user"></i> Patients
       </li>
-      <li><i class="fa fa-medkit"></i> Medical History</li>
       <li><i class="fa fa-bell"></i> Notifications</li>
     </ul>
   </aside>
@@ -17,7 +16,7 @@
   <!-- Main Content -->
   <main class="main-content">
     <div class="topbar">
-      <span class="doctor-info"><i class="fa fa-user-md"></i> Dr. Doctor Name </span>
+      <span class="doctor-info"><i class="fa fa-user-md"></i> {{persons?.firstName}} {{persons?.lastName}} </span>
     </div>
 
     <div class="details">
