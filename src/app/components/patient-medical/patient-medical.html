@@ -1,12 +1,11 @@
 <app-header></app-header>
 <div class="page-container">
-  <!-- Left side form -->
   <div class="form-section">
     <div class="container">
       <h2>Medical History</h2>
       <p>Tell us about your Medical History</p>
 
-      <form #historyForm="ngForm" (ngSubmit)="onSubmit(historyForm)">
+      <form #historyForm="ngForm" (ngSubmit)="onSubmit(historyForm)" enctype="multipart/form-data">
         <div class="form-group">
           <label for="patientId">Patient ID</label>
           <input type="text" id="patientId" name="patientId" [(ngModel)]="formData.patientId" readonly />
@@ -19,16 +18,14 @@
 
         <div class="form-group">
           <label for="records">Records</label>
-          <input type="file" id="records" name="records" [(ngModel)]="formData.records" required />
+          <input type="file" id="records" name="records" (change)="onFileChange($event)" required />
         </div>
 
-        <button type="submit" [disabled]="!historyForm.valid">Submit</button>
+        <button type="submit" [disabled]="!historyForm.valid || !selectedFile">Submit</button>
       </form>
     </div>
   </div>
 
-  <!-- Right side image -->
   <div class="image-section">
     <img src="../../../assets/Rectangle 3803.png" alt="patientimage">
   </div>
-</div>

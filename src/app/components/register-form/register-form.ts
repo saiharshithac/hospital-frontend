@@ -29,40 +29,44 @@ export class RegisterForm {
   };
 
   showToast = false;
+onSubmit(form: NgForm) {
+  if (form.valid) {
+    this.personService.registerPerson(this.formData).subscribe({
+      next: (response) => {
+        console.log('Registration successful', response);
+        this.showToast = true;
 
-  onSubmit(form: NgForm) {
-    if (form.valid) {
-      console.log('Form Data:', this.formData);
-      console.log(form);
-      this.personService.registerPerson(this.formData).subscribe({
-        next: (response) => {
-          console.log('Registration successful', response);
-          this.showToast = true;
+        const role = response.role?.toLowerCase();
+        const personId = response.personId;
 
-          const role = response.role?.toLowerCase();
-          const personId = response.personId;
+        setTimeout(() => {
+          this.showToast = false;
 
-          setTimeout(() => {
-            this.showToast = false;
+          // Redirect based on role
+          if (role === 'doctor') {
+            this.router.navigate(['/doctor'], { queryParams: { id: personId } });
+          } else if (role === 'patient') {
+            this.router.navigate(['/patient'], { queryParams: { id: personId } });
+          } else if (role === 'staff') {
+            this.router.navigate(['/staff'], { queryParams: { id: personId } });
+          } else {
+            this.router.navigate(['/']); // fallback
+          }
+        }, 3000);
 
-            // Redirect based on role
-            if (role === 'doctor') {
-              this.router.navigate(['/doctor'], { queryParams: { id: personId } });
-            } else if (role === 'patient') {
-              this.router.navigate(['/patient'], { queryParams: { id: personId } });
-            } else if (role === 'staff') {
-              this.router.navigate(['/staff'], { queryParams: { id: personId } });
-            } else {
-              this.router.navigate(['/']); // fallback
-            }
-          }, 3000);
+        form.resetForm();
+      },
+      error: (error: any) => {
+        console.error('Registration failed:', error);
 
-          form.resetForm();
-        },
-        error: (error: any) => {
-          console.error('Registration failed:', error);
+        // Check for email already exists error
+        if (error.status === 400 && error.error === 'Email already exists') {
+          alert('Email already exists. Please use a different email.');
+        } else {
+          alert('Something went wrong. Please try again.');
         }
-      });
-    }
+      }
+    });
   }
+}
 }

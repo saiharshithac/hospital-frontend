@@ -39,6 +39,11 @@ select {
   font-size: 14px;
 }
 
+input[readonly] {
+  background-color: #e9ecef;
+  cursor: not-allowed;
+}
+
 .button-group {
   text-align: center;
   margin-top: 30px;
@@ -59,10 +64,7 @@ button {
 button:hover {
   background-color: #1565c0;
 }
-input[readonly] {
-  background-color: #e9ecef;
-  cursor: not-allowed;
-}
+
 .background-image {
   background-image: url('https://evenica.com/wp-content/uploads/2023/01/Evenica_Healthcare.png');
   background-size: cover;
@@ -72,6 +74,31 @@ input[readonly] {
   border-radius: 7px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   max-width: 1000px;
-  margin: 0px auto;
-  backdrop-filter: blur(4px); /* Optional: adds a frosted glass effect */
+  margin: 0 auto;
+  backdrop-filter: blur(4px);
+}
+
+/* ✅ Responsive for tablets and mobiles */
+@media screen and (max-width: 768px) {
+  .profile-container {
+    padding: 20px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  button {
+    width: 100%;
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+
+  .background-image {
+    padding: 10px 20px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
 }

@@ -59,17 +59,24 @@
         </div>
         <div class="role-details" *ngIf="personData.role?.toLowerCase() === 'doctor'">
   <h3>Doctor Details</h3>
-  <p><strong>Speciality:</strong> {{ roleSpecificData.speciality }}</p>
-  <p><strong>Years of Experience:</strong> {{ roleSpecificData.yearsOfReg }}</p>
+  <!-- <p><strong>Speciality:</strong> {{ roleSpecificData.speciality }}</p> -->
+   <input type="text" name="speciality" id="speciality" [(ngModel)]="roleSpecificData.speciality" placeholder="Speciality" readonly/>
+   <br>
+  <!-- <p><strong>Years of Experience:</strong> {{ roleSpecificData.yearsOfReg }}</p> -->
+   <input type="number" name="yearsOfReg" id="yearsOfReg" [(ngModel)]="roleSpecificData.yearsOfReg" placeholder="Years of Registration" required/>
 </div>
 
-<div class="role-details" *ngIf="personData.role?.toLowerCase() === 'patient'">
-  <h3>Medical History</h3>
-  <p><strong>Disease Type:</strong> {{ roleSpecificData.dtype }}</p>
-  <p><strong>Medical Record:</strong>
-    <a [href]="roleSpecificData.records" target="_blank">View File</a>
-  </p>
-</div>
+      <div class="role-details" *ngIf="personData.role?.toLowerCase() === 'patient'">
+        <h3>Medical History</h3>
+        <label for="dtype">Disease Type</label>
+        <input type="text" id="dtype" name="dtype" [(ngModel)]="roleSpecificData.dtype" required />
+<!-- 
+        <label for="records">Upload Medical Record</label>
+        <input type="file" id="records" name="records" (change)="onFileChange($event)" /> -->
+
+      <p *ngIf="roleSpecificData.records"><strong>Existing Record:</strong><a [href]="'https://localhost:7270/' + roleSpecificData.records" target="_blank">View File</a> </p><p *ngIf="!roleSpecificData.records"><strong>Existing Record:</strong> No file uploaded.</p>
+      </div>
+
         <div class="button-group">
         <button type="submit" >Update Profile</button>
         </div>

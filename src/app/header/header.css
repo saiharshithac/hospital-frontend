@@ -6,57 +6,23 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-
-}
-.home-image-link {
-  display: inline-block;
-  padding: 5px;
+  overflow-x: auto; /* Enables horizontal scroll if needed */
+  white-space: nowrap; /* Prevents wrapping */
 }
 
-.home-image {
-  width: 42px;
-  height: 42px;
-  object-fit: cover;
-  border-radius: 50%; /* Optional: makes it circular */
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out;
-}
-
-.home-image:hover {
-  transform: scale(1.1);
-}
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: nowrap; /* Prevents wrapping */
+  gap: 20px;
 }
 
 .nav-left {
   display: flex;
   align-items: center;
-}
-
-.home-icon {
-  font-size: 20px;
-  margin-right: 10px;
-}
-
-.home-icon a {
-  text-decoration: none;
-  color: black;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-.home-icon a:hover {
-  color: #1976d2;
-}
-
-.app-title {
-  font-size: 22px;
-  font-weight: bold;
-  color: #42a5f5;
-  margin-left: 5px;
+  gap: 10px;
+  flex-shrink: 0;
 }
 
 .nav-links {
@@ -66,6 +32,7 @@
   gap: 24px;
   margin: 0;
   padding: 0;
+  flex-shrink: 0;
 }
 
 .nav-links li {
@@ -73,24 +40,56 @@
   align-items: center;
 }
 
+.home-image-link {
+  padding: 5px;
+  flex-shrink: 0;
+}
+
+.home-image {
+  width: 42px;
+  height: 42px;
+  object-fit: cover;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.home-image:hover {
+  transform: scale(1.1);
+}
+
+.home-icon a,
 .nav-links a {
   text-decoration: none;
   color: black;
   font-weight: 500;
   transition: color 0.3s ease;
+  flex-shrink: 0;
 }
 
+.home-icon a:hover,
 .nav-links a:hover {
   color: #1976d2;
 }
 
-.icon-link i {
+.app-title {
+  font-size: 22px;
+  font-weight: bold;
+  color: #42a5f5;
+  margin-left: 5px;
+  flex-shrink: 0;
+}
+
+.icon-link i,
+.profile-icon {
   font-size: 20px;
   color: black;
   transition: color 0.3s ease;
+  flex-shrink: 0;
 }
 
-.icon-link:hover i {
+.icon-link:hover i,
+.profile-icon:hover {
   color: #1976d2;
 }
 
@@ -98,23 +97,14 @@
   background-color: #42a5f5;
   color: white;
   border: none;
-  padding: 14px 28px; /* Increased height and width */
+  padding: 14px 28px;
   border-radius: 6px;
-  /* cursor: pointer; */
   font-weight: 600;
   font-size: 16px;
   transition: background-color 0.3s ease;
+  flex-shrink: 0;
 }
 
 .appointment-btn:hover {
   background-color: #1976d2;
-}
-.profile-icon {
-  font-size: 24px;
-  color: black;
-  transition: color 0.3s ease;
-}
-
-.profile-icon:hover {
-  color: #1976d2;
 }

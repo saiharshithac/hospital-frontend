@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -20,10 +20,11 @@ export class DoctorService {
   const url = `${this.apiUrl}/addSpeciality/${doctorId}`;
   return this.http.post(url, dto);
   }
+updateSpeciality(doctorId: number, dto: any): Observable<any> {
+  const token = localStorage.getItem('token');
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-  GetDoctorByPersonId(personId: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/GetDoctorByPersonId?personid=${personId}`);
-  }
-
-  
+  const url = `${this.apiUrl}/${doctorId}/updateSpeciality`;
+  return this.http.put(url, dto, { headers });
+}
 }

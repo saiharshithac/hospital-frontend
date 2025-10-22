@@ -5,6 +5,7 @@
   align-items: center;
   padding: 40px;
   font-family: Arial, sans-serif;
+  gap: 20px;
 }
 
 .image-section {
@@ -13,34 +14,25 @@
   text-align: center;
 }
 
+
 .image-section img {
-  width: 80%;           /* Reduce width to 80% of its container */
-  height: 600px;        /* Reduce height to fit nicely */
-  object-fit: cover;    /* Keeps the image looking good */
+  max-width: 100%;
+  max-height: 400px;
   border-radius: 10px;
-  display: block;
-  margin: 0 auto;       /* Center the image horizontally */
+  object-fit: cover;
 }
-
-
 
 .form-section {
   flex: 1;
-  min-width: 350px;
+  min-width: 300px;
   padding: 10px;
 }
 
-.form-group {
-  margin-bottom: 20px;
-}
-
-
 .container {
-  /* background-color: white;
   padding: 30px;
+  background-color: white;
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); */
-  padding: 50px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 h2 {
@@ -86,4 +78,26 @@ button {
 
 button:hover {
   background-color: #6ab7f7;
+}
+
+/* ✅ Responsive for small screens */
+@media screen and (max-width: 768px) {
+  .page-container {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .image-section img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .form-section {
+    width: 100%;
+  }
+
+  .container {
+    width: 100%;
+    padding: 20px;
+  }
 }

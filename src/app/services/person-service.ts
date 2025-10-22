@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PersonService {
-  private apiUrl = 'https://localhost:7270/api/person'; 
+  private apiUrl = 'https://localhost:7270/api/person'; // Assuming controller route is /api/person
 
   constructor(private http: HttpClient) {}
 
@@ -14,7 +14,7 @@ export class PersonService {
     return this.http.post(`${this.apiUrl}/RegisterNewPerson`, personData);
   }
 
- validateUser(details: { username: string; password: string }): Observable<any> {
+  validateUser(details: { username: string; password: string }): Observable<any> {
   const body = {
     email: details.username,
     password: details.password
@@ -31,18 +31,19 @@ export class PersonService {
   }
 
   updatePerson(id: number, personData: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/UpdatePerson/${id}`, personData);
+    return this.http.put(`${this.apiUrl}/${id}/UpdatePerson`, personData);
   }
 
   getPersonDetailsByRole(role: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/GetByRole`,
- {
-    params: { role }
-  }
-);
-  }
+  const token = localStorage.getItem('token');
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-  // Get count by role
+  return this.http.get<any>(`${this.apiUrl}/GetByRole`, {
+    headers,
+    params: { role }
+  });
+}
+
   getCountByRole(role: string): Observable<number> {
     return this.http.get<number>(`${this.apiUrl}/Count/${role}`);
   }
