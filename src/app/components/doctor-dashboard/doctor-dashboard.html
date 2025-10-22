@@ -3,24 +3,26 @@
   <aside class="sidebar">
     <h2>Dashboard</h2>
     <ul>
-      <li class="active">
+      <li [class.active]="activeSection === 'appointments'" (click)="showSection('appointments')">
         <i class="fa fa-calendar"></i> Appointments
       </li>
-      <li><i class="fa fa-user"></i> Patients</li>
+      <li [class.active]="activeSection === 'patients'" (click)="showSection('patients')">
+        <i class="fa fa-user"></i> Patients
+      </li>
       <li><i class="fa fa-medkit"></i> Medical History</li>
       <li><i class="fa fa-bell"></i> Notifications</li>
     </ul>
   </aside>
- 
+
   <!-- Main Content -->
   <main class="main-content">
     <div class="topbar">
       <span class="doctor-info"><i class="fa fa-user-md"></i> Doctor</span>
     </div>
- 
+
     <div class="details">
       <!-- Upcoming Appointments -->
-      <div class="appointments">
+      <div *ngIf="activeSection === 'appointments'" class="appointments">
         <h3>Upcoming Appointments</h3>
         <table>
           <thead>
@@ -38,29 +40,75 @@
               <td>Apr 24</td>
               <td class="confirmed">Confirmed</td>
             </tr>
-            <tr>
-              <td>Mary Smith</td>
-              <td>10:30 AM</td>
-              <td>Apr 24</td>
-              <td class="confirmed">Confirmed</td>
-            </tr>
-            <tr>
-              <td>Alice Johnson</td>
-              <td>1:15 PM</td>
-              <td>Apr 24</td>
-              <td class="pending">Pending</td>
-            </tr>
-            <tr>
-              <td>Robert Brown</td>
-              <td>2:00 PM</td>
-              <td>Apr 24</td>
-              <td class="pending">Pending</td>
-            </tr>
           </tbody>
         </table>
       </div>
- 
-     
+
+      <!-- Patients -->
+
+      <div *ngIf="activeSection === 'patients'" class="patients">
+      
+        <div *ngIf="!selectedPatient">
+          <div *ngFor="let p of patients?.$values" class="patient-card">
+             <h4>{{ p.firstName }} {{p.lastName}}</h4>
+            <p>Gender : {{p.gender}}</p>
+            <p>Phone No : {{p.phoneNo}}</p>
+            <div class="patient-actions">
+              <button>Medical History</button>
+              <button (click)="openTreatmentForm(p)">Update Treatment</button>
+            </div>
+            <br><br>
+          </div>
+        </div>
+      </div>
+
+      <!-- Treatment Done -->
+       <div *ngIf="selectedPatient" class="treatment-form">
+       <form #treatmentForm="ngForm">
+        <h3>Treatment for {{ selectedPatient.firstName }} {{ selectedPatient.lastName }}</h3>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>DoctorId</label>
+            <input type="number" name="DoctorId" [(ngModel)]="treatmentData.DoctorId">
+          </div>
+          <div class="form-group">
+            <label>PatientId</label>
+            <input type="number" name="PatientId" [(ngModel)]="treatmentData.PatientId" readonly>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>FollowUp</label>
+            <input type="date" name="FollowUp" [(ngModel)]="treatmentData.FollowUp">
+          </div>
+          <div class="form-group">
+            <label>Created At</label>
+            <input type="date" name="CreatedAt" [(ngModel)]="treatmentData.CreatedAt">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Diagnosis</label>
+          <input type="text" name="Diagnosis" [(ngModel)]="treatmentData.Diagnosis">
+        </div>
+
+        <div class="form-group">
+          <label>Description</label>
+          <input type="text" name="Description" [(ngModel)]="treatmentData.Description">
+        </div>
+
+        <div class="form-group">
+          <label>Prescription</label>
+          <input type="text" name="Prescription" [(ngModel)]="treatmentData.Prescription">
+        </div>
+        <div class="button-row">
+        <button (click)="submitTreatment()">Submit</button>
+        <button (click)="cancel()">Cancel</button>
+        </div>
+       </form>
+       </div>
     </div>
   </main>
 </div>

@@ -11,7 +11,7 @@ import { Header } from '../../header/header';
   styleUrl: './appointment-notifications.css',
 })
 export class AppointmentNotifications implements OnInit {
-  notifications: any[] = [];
+  notifications: any = null;
 
   constructor(private notificationService: NotificationService) {}
 
@@ -20,8 +20,8 @@ export class AppointmentNotifications implements OnInit {
     this.notificationService.getNotifications(personId).subscribe({
       
       next: (data) => {
+        this.notifications = data; 
         console.log('Received notifications:', data);
-        this.notifications = data?.$values ?? []; 
       },
       error: (err) => console.error('Error fetching notifications:', err),
     });

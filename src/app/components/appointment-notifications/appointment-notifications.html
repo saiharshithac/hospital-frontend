@@ -5,7 +5,7 @@
   </div>
 
   <ul class="notification-list">
-    <li *ngFor="let notification of notifications" [class.read]="notification.read">
+    <li *ngFor="let notification of notifications?.$values">
       <div class="notification-card">
         <p>{{ notification.message }}</p>
       </div>
