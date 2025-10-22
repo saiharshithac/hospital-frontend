@@ -9,7 +9,6 @@
       <li [class.active]="activeSection === 'patients'" (click)="showSection('patients')">
         <i class="fa fa-user"></i> Patients
       </li>
-      <li class="active"><i class="fa fa-calendar"></i> Appointments</li>
       <li><i class="fa fa-medkit"></i> Medical History</li>
       <li><i class="fa fa-bell"></i> Notifications</li>
     </ul>
@@ -35,6 +34,7 @@
                 <th>Time Slot</th>
                 <th>Date</th>
                 <th>Status</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -44,20 +44,13 @@
                 class="appointment-card"
               >
                 <td>{{ appointment.appointmentId }}</td>
-                <td>{{ persons.firstName }} {{ persons.lastName }}</td>
+                 <td>{{appointment.firstName}} {{appointment.lastName}}</td>
                 <td>{{ appointment.timeSlotId }}</td>
                 <td>{{ appointment.appointmentDate }}</td>
-                <select class="status-dropdown" (change)="(appointment.status)">
-                  <option value="Scheduled" [selected]="appointment.status === 'Scheduled'">
-                    Scheduled
-                  </option>
-                  <option value="Completed" [selected]="appointment.status === 'Completed'">
-                    Completed
-                  </option>
-                  <option value="Cancelled" [selected]="appointment.status === 'Cancelled'">
-                    Cancelled
-                  </option>
-                </select>
+                <td>{{ appointment.status }}</td>
+                <td>
+                  <button (click)="Cancel(appointment.appointmentId)">Cancel</button>
+                </td>
               </tr>
             </tbody>
           </table>

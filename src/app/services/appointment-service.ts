@@ -25,4 +25,14 @@ export class AppointmentService {
     );
   }
   
+  cancelledAppointment(appointmentId: any) {
+    const url = `${this.apiUrl}/Appointment/cancelledAppointment/${appointmentId}`;
+    return this.http.put(url,{}, { responseType: 'text' });
+  }
+  
+  GetAppointmentsByDoctorId(doctorId: number) {
+    return this.http.get(
+      `${this.apiUrl}/GetAppointmentsByDoctorId?doctorId=${doctorId}`
+    );
+  }
 }

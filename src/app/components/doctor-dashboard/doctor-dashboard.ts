@@ -10,11 +10,10 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [CommonModule,FormsModule],
   templateUrl: './doctor-dashboard.html',
-  styleUrl: './doctor-dashboard.css',
+  styleUrls: ['./doctor-dashboard.css'],
 })
 export class DoctorDashboard implements OnInit {
-  personId: number | null = 3;
-  persons: any = null;
+  doctorId: number | null = null;
   appointments: any = null;
   selectedAppointmentId: any = null;
   activeSection: string = 'appointments';
@@ -27,36 +26,17 @@ export class DoctorDashboard implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.personId = params['personid'] ? Number(params['personid']) : null;
-      this.personId = 3; 
-      console.log('Doctor Dashboard personId:', this.personId);
-    if (this.personId !== null) {
-    this.loadPersonDetails(this.personId);
-    this.loadAppointmentDetails(this.personId);
+  this.route.queryParams.subscribe(params => {
+    this.doctorId = +params['doctorId'] || 1;
+      console.log('Doctor Dashboard doctorId:', this.doctorId);
+    if (this.doctorId !== null) {
+    this.loadAppointmentDetails(this.doctorId!);
     }
-    this.personService.getPersonDetailsByRole('Patient').subscribe({
-      next: (data) => {
-        this.patients = data;
-        console.log('Received patients:', data);
-      },
-      error: (err) => console.error('Error fetching patients:', err),
-    });
   });
 }
-  loadPersonDetails(id: number) {
-    this.personService.getPersonById(id).subscribe({
-      next: (data) => {
-        this.persons = data;
-        console.log('Persons loaded:', data);
-      },
-      error: (err) => {
-        console.error('Error loading persons');
-      }
-    });
-  }
+  
   loadAppointmentDetails(id: number) {
-    this.appointmentService.GetAppointmentsByPersonId(id).subscribe({
+    this.appointmentService.GetAppointmentsByDoctorId(id).subscribe({
       next: (data) => {
         this.appointments = data;
         console.log('Appointments loaded:', data);
@@ -65,6 +45,18 @@ export class DoctorDashboard implements OnInit {
         console.error('Error loading appointments');
       }
     }); 
+  }
+  Cancel(appointmentId: any){
+    if (appointmentId) {
+      this.appointmentService.cancelledAppointment(appointmentId).subscribe({
+        next: (res) => {
+          console.log('Appointment cancelled successfully:', res);
+        },
+        error: (err) => {
+          console.error('Error cancelling appointment:', err);
+        }
+      }); 
+    }
   }
   showSection(section: string): void {
     this.activeSection = section;
