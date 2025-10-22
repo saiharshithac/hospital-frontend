@@ -4,11 +4,15 @@ import { AppointmentService } from '../../services/appointment-service';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { AppointmentNotifications } from "../appointment-notifications/appointment-notifications";
+import { TreatmentService } from '../../services/treatment-service';
+import { MedicalHistory } from '../../services/medical-history';
+
 
 @Component({
   selector: 'app-doctor-dashboard',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule, FormsModule, AppointmentNotifications],
   templateUrl: './doctor-dashboard.html',
   styleUrls: ['./doctor-dashboard.css'],
 })
@@ -19,10 +23,13 @@ export class DoctorDashboard implements OnInit {
   activeSection: string = 'appointments';
   patients: any = null;
   persons: any = null;
+  history: any = null;
 
   constructor(
     private personService: PersonService,
     private appointmentService: AppointmentService,
+    private treatmentService: TreatmentService,
+    private medicalhistory: MedicalHistory,
     private route: ActivatedRoute
   ) {}
 
@@ -34,6 +41,13 @@ export class DoctorDashboard implements OnInit {
     this.loadAppointmentDetails(this.doctorId!);
     this.loadPersonDetails(this.doctorId!);
     }
+    this.personService.getPersonDetailsByRole('Patient').subscribe({
+        next: (data) => {
+          this.patients = data;
+          console.log('Received patients:', data);
+        },
+        error: (err) => console.error('Error fetching patients:', err),
+      });
   });
 }
   
@@ -71,30 +85,58 @@ export class DoctorDashboard implements OnInit {
   showSection(section: string): void {
     this.activeSection = section;
   }
-
-  selectedPatient : any = null;
-   treatmentData = {
-    DoctorId : '',
-    PatientId : '',
-    Diagnosis : '',
-    Description : '',
+ 
+  selectedPatient: any = null;
+  treatmentData = {
+    DoctorId: '',
+    PatientId: '',
+    Dtype: '',
+    Description: '',
     Prescription: '',
     FollowUp: '',
     CreatedAt: '',
-  }
-  openTreatmentForm(patients : any){
+  };
+  openTreatmentForm(patients: any) {
     this.selectedPatient = patients;
     this.treatmentData.PatientId = patients.personId;
   }
-
+ 
   submitTreatment() {
-  const data = { ...this.treatmentData };
-
-  console.log('Submitting treatment:', data);
+    const data = { ...this.treatmentData };
+    console.log(data);
+    this.treatmentService.createTreatment(data).subscribe({
+      next: (response) => {
+        console.log('Treatment submitted successfully:', response);
+        alert(" Successfully added treatment");
+        this.selectedPatient = null; // hide form
+      },
+      error: (err) => {
+        console.error('Error submitting treatment:', err);
+      },
+    });
   }
-
-  cancel(){
+  cancel() {
     this.selectedPatient = null;
   }
-
+ 
+  getHistory(personId : any){
+    this.medicalhistory.GetMedicalHistory(personId).subscribe({
+      next: (blob) =>{
+        // this.history = data;
+        // console.log('History loaded:', blob);
+        const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'medical-history.docx'; // or .zip, depending on your backend
+      a.click();
+      window.URL.revokeObjectURL(url);
+      },
+      error: (err) => {
+        console.error('Error loading medicalHistory',err);
+      },
+    })
+  }
+ 
 }
+ 
+ 

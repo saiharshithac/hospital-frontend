@@ -9,7 +9,9 @@
       <li [class.active]="activeSection === 'patients'" (click)="showSection('patients')">
         <i class="fa fa-user"></i> Patients
       </li>
-      <li><i class="fa fa-bell"></i> Notifications</li>
+      <li [class.active]="activeSection === 'notifications'" (click)="showSection('notifications')">
+        <i class="fa fa-bell"></i> Notifications
+      </li>
     </ul>
   </aside>
 
@@ -66,7 +68,7 @@
           <p>Gender : {{ p.gender }}</p>
           <p>Phone No : {{ p.phoneNo }}</p>
           <div class="patient-actions">
-            <button>Medical History</button>
+            <button (click)="getHistory(p.personId)">Medical History</button>
             <button (click)="openTreatmentForm(p)">Update Treatment</button>
           </div>
           <br /><br />
@@ -94,16 +96,12 @@
           <div class="form-group">
             <label>FollowUp</label>
             <input type="date" name="FollowUp" [(ngModel)]="treatmentData.FollowUp" />
-          </div>
-          <div class="form-group">
-            <label>Created At</label>
-            <input type="date" name="CreatedAt" [(ngModel)]="treatmentData.CreatedAt" />
-          </div>
+          </div>          
         </div>
 
         <div class="form-group">
-          <label>Diagnosis</label>
-          <input type="text" name="Diagnosis" [(ngModel)]="treatmentData.Diagnosis" />
+          <label>Dtype</label>
+          <input type="text" name="Dtype" [(ngModel)]="treatmentData.Dtype" />
         </div>
 
         <div class="form-group">
@@ -120,6 +118,10 @@
           <button (click)="cancel()">Cancel</button>
         </div>
       </form>
+    </div>
+    <!-- Notification -->
+    <div *ngIf="activeSection === 'notifications'">
+      <app-appointment-notifications></app-appointment-notifications>
     </div>
   </main>
 </div>
