@@ -34,7 +34,7 @@ export class Appointment implements OnInit{
   private appointmentService: AppointmentService,
   private route: ActivatedRoute
   ) {}
-
+  
   ngOnInit(): void{
     this.minDate = new Date().toISOString().split('T')[0];
     this.route.queryParams.subscribe(params => {
@@ -108,7 +108,12 @@ export class Appointment implements OnInit{
       }
       console.log('Appointment Data:', appointmentData);
 
-      this.appointmentService.createAppointments( appointmentData
+      this.appointmentService.createAppointments( 
+        this.selectedTime, 
+        this.selectedDate,
+        this.doctors.personId,
+        this.patientId!,
+        'Scheduled'
       ).subscribe({
         next: (response: any) => {
           console.log('Appointment created successfully:', response);

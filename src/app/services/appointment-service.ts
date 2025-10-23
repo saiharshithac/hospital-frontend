@@ -9,10 +9,9 @@ export class AppointmentService {
   private apiUrl = 'https://localhost:7270/api';
   constructor(private http: HttpClient) {}
 
-  createAppointments( appointmentData : any
+  createAppointments( TimeslotId: string, appointmentDate: string, doctorId: number, personId: number, status: string
   ) {
-    const url = `${this.apiUrl}/createAppointments?TimeSlotId=${appointmentData.TimeslotId}&AppointmentDate=${appointmentData.appointmentDate}&DoctorId=${appointmentData.doctorId}&PatientId=${appointmentData.personId}&Status=${appointmentData.status}`;
-    //https://localhost:7270/api/createAppointments?TimeSlotId=slot2&AppointmentDate=2025-10-31&DoctorId=5&PatientId=4&Status=Scheduled
+    const url = `${this.apiUrl}/createAppointments?TimeSlotId=${TimeslotId}&AppointmentDate=${appointmentDate}&DoctorId=${doctorId}&PatientId=${personId}&Status=${status}`;
     return this.http.post(url, null);
   }
    getAppointmentsCount():Observable<number>{
