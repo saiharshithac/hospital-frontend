@@ -1,9 +1,14 @@
 <app-header></app-header>
 <div class="background-image">
     <div class="profile-container">
-    <h2>{{personData.firstName}}</h2>
-    <i class="fa-lock"></i>
-        <button class="logout-btn" (click)="onLogOut()">Logout</button>
+    <div class="profile-header">
+  <h2>{{ personData.firstName }}</h2>
+  <button class="logout-btn" (click)="onLogOut()">
+    <i class="fa fa-lock"></i> Logout
+  </button>
+</div>
+
+
     <form (ngSubmit)="onUpdate()" #profileForm="ngForm" class="profile-form">
         <div class="form-grid">
         <div class="form-group">

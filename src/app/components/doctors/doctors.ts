@@ -36,7 +36,7 @@ export class Doctors {
       },
     });
   }
- searchBySpeciality(): void {
+  searchBySpeciality(): void {
   const term = this.searchTerm.trim().toLowerCase(); // normalize search term
   if (term === '') {
     this.DoctorsBySpeciality = [...this.doctors];
