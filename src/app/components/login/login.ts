@@ -13,31 +13,6 @@ import { AuthService } from '../../services/auth-service';
   styleUrl: './login.css'
 })
 export class Login {
-  // details={
-  //   username:'',
-  //   password:''
-  // }
- 
-  // errorMessage: string = '';
- 
-  // constructor(private loginService: PersonService, private router: Router) {}
- 
-  // onLogin(form:NgForm) {
-  //   if (form.valid) {
-  //     this.loginService.validateUser(this.details).subscribe({
-  //       next: (response) => {
-  //         console.log('Successfully logged in', response);
-  //         localStorage.setItem('token', response.token);
-  //         localStorage.setItem('personId', response.personId.toString());
-  //         this.router.navigate(['/register']);
-  //       },
-  //       error: (err) => {
-  //         console.error('Login failed', err);
-  //         this.errorMessage = 'Invalid username or password';
-  //       }
-  //     });
-  //   }
-  // }
  details={
     username:'',
     password:''
@@ -47,18 +22,18 @@ onLogin(form:NgForm){
  this.http.post<any>('https://localhost:7270/api/person/login',form.value).subscribe({
    next:(res)=>{
      this.auth.setToken(res.token); 
-     const role=this.auth.getUserRole();
-    //  console.log('id',this.auth.getUserId());
+     const role = this.auth.getUserRole() ?? '';
   localStorage.setItem('personId', res.personId.toString());
-    
-     if(role==='Admin'){
-       this.router.navigate(['/update-profile']);
-     }
-     else if(role==='Doctor'){
+     localStorage.setItem('role', role);
+       
+      if(role==='Doctor'){
        this.router.navigate(['/aboutus']);
      }
      else if(role==='Patient'){
-       this.router.navigate(['/register']);
+       this.router.navigate(['/appointment']);
+     }
+     else if(role ==='Staff'){
+      this.router.navigate(['/dashboard-admin']);
      }
    },
    error: err=>{
