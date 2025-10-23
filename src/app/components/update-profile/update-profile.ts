@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule,NgIf } from '@angular/common';
 import { Header } from "../../header/header";
 import { ActivatedRoute, Router } from '@angular/router';
 import { PersonService } from '../../services/person-service';
@@ -19,29 +19,39 @@ export class UpdateProfile implements OnInit{
   roleSpecificData: any = {};
   appointments: any[] = [];
   constructor(private route: ActivatedRoute,private router:Router, private personService:PersonService,private doctorService:DoctorService,private appservice:AppointmentService) {}
-  ngOnInit(): void {
-  const storedId = localStorage.getItem('personId');
-  if (storedId && !isNaN(+storedId)) {
-    this.personId = +storedId;
-    this.loadPersonDetails();
-  } else {
-    console.error('Invalid or missing personId in localStorage');
-    // Optionally redirect to login or show error
+//   ngOnInit(): void {
+//   const storedId = localStorage.getItem('personId');
+//   if (storedId && !isNaN(+storedId)) {
+//     this.personId = +storedId;
+//     this.loadPersonDetails();
+//   } else {
+//     console.error('Invalid or missing personId in localStorage');
+//     // Optionally redirect to login or show error
+//   }
+// }
+getPersonIdFromToken(): number | null {
+  const token = localStorage.getItem('token');
+  if (!token) return null;
+
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload.sub || null;
+  } catch (e) {
+    console.error('Invalid token format', e);
+    return null;
   }
 }
-// Name: string = this.personData.firstName || '';
 
-// loadAppointments() {
-//   const personId = this.personData.personId;
-//   this.apiService.getAppointmentsByPersonId(personId).subscribe({
-//     next: (res) => {
-//       this.appointments = res;
-//     },
-//     error: (err) => {
-//       console.error('Error fetching appointments', err);
-//     }
-//   });
-// }
+ngOnInit(): void {
+  const personIdFromToken = this.getPersonIdFromToken();
+  if (personIdFromToken && !isNaN(+personIdFromToken)) {
+    this.personId = +personIdFromToken;
+    this.loadPersonDetails();
+  } else {
+    console.error('Invalid or missing personId in token');
+    this.router.navigate(['/login']);
+  }
+}
 
   loadPersonDetails() {
     this.personService.getPersonById(this.personId).subscribe({
@@ -91,7 +101,7 @@ export class UpdateProfile implements OnInit{
   localStorage.removeItem('role');
   localStorage.removeItem('personId');
   this.router.navigate(['/login']);
-  
+
  
 }
 getAppointments() {
