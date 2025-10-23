@@ -99,6 +99,7 @@ export class DoctorDashboard implements OnInit {
   openTreatmentForm(patients: any) {
     this.selectedPatient = patients;
     this.treatmentData.PatientId = patients.personId;
+    this.treatmentData.DoctorId = this.doctorId!.toString();
   }
  
   submitTreatment() {
