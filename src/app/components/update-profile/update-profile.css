@@ -39,6 +39,11 @@ select {
   font-size: 14px;
 }
 
+input[readonly] {
+  background-color: #e9ecef;
+  cursor: not-allowed;
+}
+
 .button-group {
   text-align: center;
   margin-top: 30px;
@@ -59,10 +64,7 @@ button {
 button:hover {
   background-color: #1565c0;
 }
-input[readonly] {
-  background-color: #e9ecef;
-  cursor: not-allowed;
-}
+
 .background-image {
   background-image: url('https://evenica.com/wp-content/uploads/2023/01/Evenica_Healthcare.png');
   background-size: cover;
@@ -72,6 +74,144 @@ input[readonly] {
   border-radius: 7px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   max-width: 1000px;
-  margin: 0px auto;
-  backdrop-filter: blur(4px); /* Optional: adds a frosted glass effect */
+  margin: 0 auto;
+  backdrop-filter: blur(4px);
+}
+.appointments-container {
+  margin-top: 20px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.logout-btn {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s ease;
+}
+ 
+.logout-btn:hover {
+  background-color: #e60000;
+}
+ 
+.logout-btn i {
+  font-size: 18px;
+}
+ 
+.profile-header {
+  display: flex;
+  justify-content: space-between; /* Left and right alignment */
+  align-items: center;
+  margin-bottom: 20px; /* Space below header */
+}
+
+.profile-header h2 {
+  color: #1976d2;
+  margin: 0; /* Remove default margin */
+}
+
+
+.appointments-container h4 {
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: #333;
+}
+
+.appointments-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.appointments-table th,
+.appointments-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #dddddd;
+}
+
+.appointments-table th {
+  background-color: #f4f4f4;
+  color: #007bff;
+  font-weight: 600;
+}
+
+.status-scheduled {
+  color: #007bff;
+  font-weight: bold;
+}
+
+.status-cancelled {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+.status-updated {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-update {
+  background-color: #28a745;
+  color: #fff;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.btn-cancel {
+  background-color: #dc3545;
+  color: #fff;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.no-appointments {
+  margin-top: 20px;
+  text-align: center;
+  color: #666;
+}
+@media screen and (max-width: 768px) {
+  .profile-container {
+    padding: 20px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  button {
+    width: 100%;
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+
+  .background-image {
+    padding: 10px 20px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
 }

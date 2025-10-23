@@ -20,21 +20,29 @@ export class AppointmentService {
     getAllAppointments():Observable<any[]>{
       return this.http.get<any[]>(`${(this.apiUrl)}/getAppointments`);
     }
+    
 
-  GetAppointmentsByPersonId(personId: number) {
+    GetAppointmentsByPersonId(personId: number) {
+      return this.http.get(
+        `${this.apiUrl}/getAppointmentsByPersonId/${personId}`
+      );
+    }
+  AppointmentsByPersonId(personId: number) {
     return this.http.get(
-      `${this.apiUrl}/getAppointmentsByPersonId/${personId}`
+      `${this.apiUrl}/Appointment/getAppointmentsByPersonId/${personId}`
     );
   }
-  
-  cancelledAppointment(appointmentId: any) {
-    const url = `${this.apiUrl}/Appointment/cancelledAppointment/${appointmentId}`;
-    return this.http.put(url,{}, { responseType: 'text' });
-  }
-  
-  GetAppointmentsByDoctorId(doctorId: number) {
-    return this.http.get(
-      `${this.apiUrl}/GetAppointmentsByDoctorId?doctorId=${doctorId}`
-    );
-  }
+    cancelledAppointment(appointmentId: any) {
+      const url = `${this.apiUrl}/Appointment/cancelledAppointment/${appointmentId}`;
+      return this.http.put(url,{}, { responseType: 'text' });
+    }
+    
+    GetAppointmentsByDoctorId(doctorId: number) {
+      return this.http.get(
+        `${this.apiUrl}/GetAppointmentsByDoctorId?doctorId=${doctorId}`
+      );
+    }
+    cancelAppointment(appointmentId: number) {
+      return this.http.put(`${this.apiUrl}/Appointment/cancelAppointment/${appointmentId}`, null);
+}
 }
