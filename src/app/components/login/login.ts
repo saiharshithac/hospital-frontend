@@ -3,7 +3,8 @@ import { PersonService } from '../../services/person-service';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Header } from "../../header/header";
- 
+import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../services/auth-service';
 @Component({
   selector: 'app-login',
   imports: [FormsModule, Header, RouterLink],
@@ -11,30 +12,33 @@ import { Header } from "../../header/header";
   styleUrl: './login.css'
 })
 export class Login {
-  details={
+ details={
     username:'',
     password:''
-  }
- 
-  errorMessage: string = '';
- 
-  constructor(private loginService: PersonService, private router: Router) {}
- 
-  onLogin(form:NgForm) {
-    if (form.valid) {
-      this.loginService.validateUser(this.details).subscribe({
-        next: (response) => {
-          console.log('Successfully logged in', response);
-          localStorage.setItem('token', response.token);
-          localStorage.setItem('personId', response.personId.toString());
-          this.router.navigate(['/doctor-dashboard'], { queryParams: { personId: response.personId} });
-        },
-        error: (err) => {
-          console.error('Login failed', err);
-          this.errorMessage = 'Invalid username or password';
-        }
-      });
-    }
-  }
- 
-}
+ }
+constructor(private http:HttpClient,private router:Router,private auth:AuthService){}
+onLogin(form:NgForm){
+ this.http.post<any>('https://localhost:7270/api/person/login',form.value).subscribe({
+   next:(res)=>{
+     this.auth.setToken(res.token); 
+     const role = this.auth.getUserRole() ?? '';
+     localStorage.setItem('personId', res.personId);
+     localStorage.setItem('role', role);
+       
+      if(role==='Doctor'){
+       this.router.navigate(['/doctor-dashboard']);
+     }
+     else if(role==='Patient'){
+       this.router.navigate(['/doctors']);
+     }
+     else if(role ==='Staff'){
+      this.router.navigate(['/dashboard-admin']);
+     }
+   },
+   error: err=>{
+     alert('Invalid Credentials');
+   }
+ });
+ }
+}  
+  

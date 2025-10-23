@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TimeslotService } from '../../services/timeslot-service';
 import { DoctorService } from '../../services/doctor-service';
 import { AppointmentService } from '../../services/appointment-service';
+import { App } from '../../app';
 
 @Component({
   selector: 'app-appointment',
@@ -24,6 +25,7 @@ export class Appointment implements OnInit{
   doctor: any = null;
   doctors: any = null;
   timeSlots: any;
+  patientId: number | null = null;
 
   constructor(
   private personService: PersonService,
@@ -32,13 +34,17 @@ export class Appointment implements OnInit{
   private appointmentService: AppointmentService,
   private route: ActivatedRoute
   ) {}
-
+  
   ngOnInit(): void{
     this.minDate = new Date().toISOString().split('T')[0];
     this.route.queryParams.subscribe(params => {
       this.personid = params['personid'] ? Number(params['personid']) : null;
       console.log('Received personid:', this.personid);
 
+      const storedId = localStorage.getItem('personId');
+    const parsedId = storedId !== null ? Number(storedId) : null;
+    this.patientId = parsedId !== null && !isNaN(parsedId) ? parsedId : null;
+    
       if (this.personid !== null) {
         this.loadPersonDetails(this.personid);
         this.loadDoctorDetails(this.personid);
@@ -96,18 +102,18 @@ export class Appointment implements OnInit{
       const appointmentData = {
         timeSlotId : this.selectedTime,
         appointmentDate : this.selectedDate,
-        personId : this.personid,
+        personId : this.patientId,
         doctorId : this.doctors.personId,
         status : 'Scheduled'
       }
       console.log('Appointment Data:', appointmentData);
 
-      this.appointmentService.createAppointments(
-        this.selectedTime,
+      this.appointmentService.createAppointments( 
+        this.selectedTime, 
         this.selectedDate,
         this.doctors.personId,
-        this.personid,
-        "Scheduled"
+        this.patientId!,
+        'Scheduled'
       ).subscribe({
         next: (response: any) => {
           console.log('Appointment created successfully:', response);

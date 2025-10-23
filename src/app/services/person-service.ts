@@ -21,7 +21,18 @@ export class PersonService {
   };
   return this.http.post<any>(`${this.apiUrl}/login`, body);
 }
-
+  getDoctorsCount():Observable<number>{
+    return this.http.get<number>(`${(this.apiUrl)}/count?role=doctor`);
+  }
+   getPatientsCount():Observable<number>{
+    return this.http.get<number>(`${(this.apiUrl)}/count?role=patient`);
+  }
+  getAllDoctors():Observable<any[]>{
+    return this.http.get<any[]>(`${(this.apiUrl)}/GetByRole?role=doctor`)
+  }
+  getAllPatients():Observable<any[]>{
+    return this.http.get<any[]>(`${(this.apiUrl)}/GetByRole?role=patient`)
+  }
   getAllPersons(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/GetAllPersons`);
   }

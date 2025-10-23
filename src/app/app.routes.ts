@@ -13,6 +13,9 @@ import { Homepage } from './components/homepage/homepage';
 import { Aboutus } from './components/aboutus/aboutus';
 import { AppointmentNotifications } from './components/appointment-notifications/appointment-notifications';
 import { Login } from './components/login/login';
+import { RoleGuard } from './guards/guards/role-guard';
+import { DashboardAdmin } from './components/dashboard-admin/dashboard-admin';
+import { Footer } from './footer/footer';
 import { DoctorDashboard } from './components/doctor-dashboard/doctor-dashboard';
 
 
@@ -23,25 +26,35 @@ export const routes: Routes = [
     },
     {
         path: 'doctor',
-        component:DoctorSpecialization
-    },
+        component:DoctorSpecialization,
+        canActivate:[RoleGuard],
+        data:{roles:['Doctor']}
+        },
     
     {
         path:"doctor-display",
-        component:DoctorsDisplay
+        component:DoctorsDisplay,
+        canActivate:[RoleGuard],
+        data:{roles:['Patient','Doctor']}
     },
     
     {
         path:"register",
-        component:RegisterForm
+        component:RegisterForm,
+        canActivate:[RoleGuard],
+        data:{roles:['Patient','Doctor']}
     },
     {
         path:"patient",
-        component:PatientMedical
+        component:PatientMedical,
+        canActivate:[RoleGuard],
+        data:{roles:['Patient','Doctor']}
     },
     {
         path:"update",
-        component:UpdateProfile
+        component:UpdateProfile,
+        canActivate:[RoleGuard],
+        data:{roles:['Patient','Doctor',]}
     },
     {
         path:"appointment",
@@ -56,20 +69,37 @@ export const routes: Routes = [
         component:Header
     },
     {
+        path:'',
+        component:Footer
+    },
+    {
         path:"homepage",
-        component:Homepage
+        component:Homepage,
+        canActivate:[RoleGuard],
+        data:{roles:['Patient','Doctor','Admin']}
     },
     {
         path:"aboutus",
-        component:Aboutus
+        component:Aboutus,
+        canActivate:[RoleGuard],
+        data:{roles:['Patient','Doctor']}
     },
     {
         path:"appointment-notifications",
-        component:AppointmentNotifications
+        component:AppointmentNotifications,
+        canActivate:[RoleGuard],
+        data:{roles:['Patient','Doctor']}
     },
     {
         path: 'login',
-        component: Login
+        component: Login,
+        
+    },
+    {
+        path:'dashboard-admin',
+        component:DashboardAdmin,
+        canActivate:[RoleGuard],
+        data:{roles:['Staff']}
     },
     {
         path: 'doctor-dashboard',
