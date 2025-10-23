@@ -8,7 +8,6 @@ import { AppointmentNotifications } from "../appointment-notifications/appointme
 import { TreatmentService } from '../../services/treatment-service';
 import { MedicalHistory } from '../../services/medical-history';
 
-
 @Component({
   selector: 'app-doctor-dashboard',
   standalone: true,
@@ -35,11 +34,13 @@ export class DoctorDashboard implements OnInit {
 
   ngOnInit(): void {
   this.route.queryParams.subscribe(params => {
-    this.doctorId = params['personId'] ? Number(params['personId']) : null;
+    const storedId = localStorage.getItem('personId');
+    const parsedId = storedId !== null ? Number(storedId) : null;
+    this.doctorId = parsedId !== null && !isNaN(parsedId) ? parsedId : null;
       console.log('Doctor Dashboard doctorId:', this.doctorId);
     if (this.doctorId !== null) {
-    this.loadAppointmentDetails(this.doctorId!);
-    this.loadPersonDetails(this.doctorId!);
+    this.loadAppointmentDetails(this.doctorId);
+    this.loadPersonDetails(this.doctorId);
     }
     this.personService.getPersonDetailsByRole('Patient').subscribe({
         next: (data) => {
@@ -109,7 +110,7 @@ export class DoctorDashboard implements OnInit {
       next: (response) => {
         console.log('Treatment submitted successfully:', response);
         alert(" Successfully added treatment");
-        this.selectedPatient = null; // hide form
+        this.selectedPatient = null;
       },
       error: (err) => {
         console.error('Error submitting treatment:', err);
@@ -123,12 +124,10 @@ export class DoctorDashboard implements OnInit {
   getHistory(personId : any){
     this.medicalhistory.GetMedicalHistory(personId).subscribe({
       next: (blob) =>{
-        // this.history = data;
-        // console.log('History loaded:', blob);
-        const url = window.URL.createObjectURL(blob);
+      const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'medical-history.docx'; // or .zip, depending on your backend
+      a.download = 'medical-history.docx';
       a.click();
       window.URL.revokeObjectURL(url);
       },

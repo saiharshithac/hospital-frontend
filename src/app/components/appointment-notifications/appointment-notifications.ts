@@ -21,7 +21,9 @@ export class AppointmentNotifications implements OnInit {
 
   ngOnInit(): void {
   this.route.queryParams.subscribe(params => {
-    this.personId = params['personId'] ? Number(params['personId']) : null;
+    const storedId = localStorage.getItem('personId');
+    const parsedId = storedId !== null ? Number(storedId) : null;
+    this.personId = parsedId !== null && !isNaN(parsedId) ? parsedId : null;
     console.log('Appointment Notifications personId:', this.personId);
 
     if (this.personId !== null) {

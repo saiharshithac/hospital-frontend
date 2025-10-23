@@ -99,7 +99,7 @@ export const routes: Routes = [
         path:'dashboard-admin',
         component:DashboardAdmin,
         canActivate:[RoleGuard],
-        data:{roles:['Admin']}
+        data:{roles:['Staff']}
     },
     {
         path: 'doctor-dashboard',

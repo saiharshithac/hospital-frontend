@@ -22,14 +22,14 @@ onLogin(form:NgForm){
    next:(res)=>{
      this.auth.setToken(res.token); 
      const role = this.auth.getUserRole() ?? '';
-  localStorage.setItem('personId', res.personId.toString());
+     localStorage.setItem('personId', res.personId);
      localStorage.setItem('role', role);
        
       if(role==='Doctor'){
-       this.router.navigate(['/aboutus']);
+       this.router.navigate(['/doctor-dashboard']);
      }
      else if(role==='Patient'){
-       this.router.navigate(['/appointment']);
+       this.router.navigate(['/doctors']);
      }
      else if(role ==='Staff'){
       this.router.navigate(['/dashboard-admin']);
