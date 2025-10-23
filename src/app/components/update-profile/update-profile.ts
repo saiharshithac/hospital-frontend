@@ -106,7 +106,7 @@ ngOnInit(): void {
 }
 getAppointments() {
   const personId = this.personId;
-  this.appservice.GetAppointmentsByPersonId(personId).subscribe({
+  this.appservice.AppointmentsByPersonId(personId).subscribe({
     next: (res: any) => {
       this.appointments = res.$values || []; // Extract actual array
       console.log('Appointments loaded:', this.appointments);
