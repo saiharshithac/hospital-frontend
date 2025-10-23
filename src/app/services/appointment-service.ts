@@ -25,4 +25,21 @@ export class AppointmentService {
     getAllAppointments():Observable<any[]>{
       return this.http.get<any[]>(`${(this.apiUrl)}/getAppointments`);
     }
+
+  GetAppointmentsByPersonId(personId: number) {
+    return this.http.get(
+      `${this.apiUrl}/getAppointmentsByPersonId/${personId}`
+    );
+  }
+  
+  cancelledAppointment(appointmentId: any) {
+    const url = `${this.apiUrl}/Appointment/cancelledAppointment/${appointmentId}`;
+    return this.http.put(url,{}, { responseType: 'text' });
+  }
+  
+  GetAppointmentsByDoctorId(doctorId: number) {
+    return this.http.get(
+      `${this.apiUrl}/GetAppointmentsByDoctorId?doctorId=${doctorId}`
+    );
+  }
 }

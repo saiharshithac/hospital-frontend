@@ -16,6 +16,7 @@ import { Login } from './components/login/login';
 import { RoleGuard } from './guards/guards/role-guard';
 import { DashboardAdmin } from './components/dashboard-admin/dashboard-admin';
 import { Footer } from './footer/footer';
+import { DoctorDashboard } from './components/doctor-dashboard/doctor-dashboard';
 
 
 export const routes: Routes = [
@@ -99,5 +100,9 @@ export const routes: Routes = [
         component:DashboardAdmin,
         canActivate:[RoleGuard],
         data:{roles:['Admin']}
+    },
+    {
+        path: 'doctor-dashboard',
+        component: DoctorDashboard
     }
 ];

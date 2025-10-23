@@ -2,12 +2,13 @@ import { Component, signal } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 
 import { Router} from '@angular/router';
+import { DoctorDashboard } from "./components/doctor-dashboard/doctor-dashboard";
 
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,RouterModule],
+  imports: [RouterOutlet, RouterModule, DoctorDashboard],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
