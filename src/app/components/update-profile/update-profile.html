@@ -1,7 +1,9 @@
 <app-header></app-header>
 <div class="background-image">
     <div class="profile-container">
-    <h2>My Profile</h2>
+    <h2>{{personData.firstName}}</h2>
+    <i class="fa-lock"></i>
+        <button class="logout-btn" (click)="onLogOut()">Logout</button>
     <form (ngSubmit)="onUpdate()" #profileForm="ngForm" class="profile-form">
         <div class="form-grid">
         <div class="form-group">
@@ -59,20 +61,68 @@
         </div>
         <div class="role-details" *ngIf="personData.role?.toLowerCase() === 'doctor'">
   <h3>Doctor Details</h3>
-  <p><strong>Speciality:</strong> {{ roleSpecificData.speciality }}</p>
-  <p><strong>Years of Experience:</strong> {{ roleSpecificData.yearsOfReg }}</p>
+  <!-- <p><strong>Speciality:</strong> {{ roleSpecificData.speciality }}</p> -->
+   <input type="text" name="speciality" id="speciality" [(ngModel)]="roleSpecificData.speciality" placeholder="Speciality" readonly/>
+   <br>
+  <!-- <p><strong>Years of Experience:</strong> {{ roleSpecificData.yearsOfReg }}</p> -->
+   <input type="number" name="yearsOfReg" id="yearsOfReg" [(ngModel)]="roleSpecificData.yearsOfReg" placeholder="Years of Registration" required/>
 </div>
 
-<div class="role-details" *ngIf="personData.role?.toLowerCase() === 'patient'">
-  <h3>Medical History</h3>
-  <p><strong>Disease Type:</strong> {{ roleSpecificData.dtype }}</p>
-  <p><strong>Medical Record:</strong>
-    <a [href]="roleSpecificData.records" target="_blank">View File</a>
-  </p>
+      <div class="role-details" *ngIf="personData.role?.toLowerCase() === 'patient'">
+        <h3>Medical History</h3>
+        <label for="dtype">Disease Type</label>
+        <input type="text" id="dtype" name="dtype" [(ngModel)]="roleSpecificData.dtype" readonly />
+        
+<p *ngIf="roleSpecificData.records">
+  <strong>Medical Record:</strong>
+  <a [href]="'https://localhost:7270/' + roleSpecificData.records" target="_blank">View File</a>
+</p>
+  
+        
+    </div>
+    <div class="button-group">
+    <button type="submit" >Update Profile</button>
+    </div>
+<button type="button" class="btn-primary" (click)="getAppointments()">Your Appointments</button>
+
+<div *ngIf="appointments && appointments.length > 0" class="appointments-container">
+  <h4>Upcoming Appointments</h4>
+  <table class="appointments-table">
+    <thead>
+      <tr>
+        <th>Appointment ID</th>
+        <th>Patient Name</th>
+        <th>Time Slot</th>
+        <th>Date</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let appt of appointments">
+        <td>{{ appt.appointmentId }}</td>
+        <td>{{ personData.firstName }}</td>
+        <td>{{ appt.timeSlotId }}</td>
+        <td>{{ appt.appointmentDate }}</td>
+        <td>
+          <span [ngClass]="{
+            'status-scheduled': appt.status === 'Scheduled',
+            'status-cancelled': appt.status === 'Cancelled',
+            'status-updated': appt.status === 'Update'
+          }">{{ appt.status }}</span>
+        </td>
+        <td>
+          <button *ngIf="appt.status === 'Scheduled'" class="btn-update" type="submit" (click)="changeStatus(appt, 'Update')">Reschedule</button>
+          <button *ngIf="appt.status === 'Scheduled'" class="btn-cancel" type="submit" (click)="changeStatus(appt, 'Cancelled')">Cancel</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
-        <div class="button-group">
-        <button type="submit" >Update Profile</button>
-        </div>
+
+<div *ngIf="appointments && appointments.length === 0" class="no-appointments">
+  <p>No appointments found.</p>
+</div>
     </form>
     </div>
     </div>

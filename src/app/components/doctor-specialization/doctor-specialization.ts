@@ -41,7 +41,7 @@ export class DoctorSpecialization {
       }).subscribe({
         next: (response) => {
           console.log('Specialization added successfully', response);
-          // this.router.navigate(['/']);
+          this.router.navigate(['/login']);
           form.resetForm();
         },
         error: (error) => {

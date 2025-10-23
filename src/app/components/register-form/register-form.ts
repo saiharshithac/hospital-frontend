@@ -51,7 +51,7 @@ export class RegisterForm {
             } else if (role === 'patient') {
               this.router.navigate(['/patient'], { queryParams: { id: personId } });
             } else if (role === 'staff') {
-              this.router.navigate(['/staff'], { queryParams: { id: personId } });
+              this.router.navigate(['/login'], { queryParams: { id: personId } });
             } else {
               this.router.navigate(['/']); // fallback
             }
