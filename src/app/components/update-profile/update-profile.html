@@ -106,7 +106,7 @@
     <tbody>
       <tr *ngFor="let appt of appointments">
         <td>{{ appt.appointmentId }}</td>
-        <td>{{ personData.firstName }}</td>
+        <td>{{ personData.firstName }} {{ personData.lastName }}</td>
         <td>{{ appt.timeSlotId }}</td>
         <td>{{ appt.appointmentDate }}</td>
         <td>

@@ -12,6 +12,9 @@
       <li [class.active]="activeSection === 'notifications'" (click)="showSection('notifications')">
         <i class="fa fa-bell"></i> Notifications
       </li>
+      <li (click)="logOut()">
+        <i class="fa fa-sign-out-alt"></i>Logout
+      </li>
     </ul>
   </aside>
 
