@@ -36,12 +36,14 @@ export class Doctors {
       },
     });
   }
-  searchBySpeciality(): void {
-    const term = this.searchTerm;
-    if (term === '') {
-      this.DoctorsBySpeciality = [...this.doctors];
-    } else {
-      this.DoctorsBySpeciality = this.doctors.filter((doctor) => doctor.speciality.includes(term));
-    }
+ searchBySpeciality(): void {
+  const term = this.searchTerm.trim().toLowerCase(); // normalize search term
+  if (term === '') {
+    this.DoctorsBySpeciality = [...this.doctors];
+  } else {
+    this.DoctorsBySpeciality = this.doctors.filter((doctor) =>
+      doctor.speciality.toLowerCase().includes(term) // normalize speciality
+    );
   }
+}
 }
