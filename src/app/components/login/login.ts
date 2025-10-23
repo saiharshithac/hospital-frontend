@@ -27,7 +27,7 @@ export class Login {
           console.log('Successfully logged in', response);
           localStorage.setItem('token', response.token);
           localStorage.setItem('personId', response.personId.toString());
-          this.router.navigate(['/register']);
+          this.router.navigate(['/doctor-dashboard'], { queryParams: { personId: response.personId} });
         },
         error: (err) => {
           console.error('Login failed', err);

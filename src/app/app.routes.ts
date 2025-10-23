@@ -13,6 +13,7 @@ import { Homepage } from './components/homepage/homepage';
 import { Aboutus } from './components/aboutus/aboutus';
 import { AppointmentNotifications } from './components/appointment-notifications/appointment-notifications';
 import { Login } from './components/login/login';
+import { DoctorDashboard } from './components/doctor-dashboard/doctor-dashboard';
 
 
 export const routes: Routes = [
@@ -69,5 +70,9 @@ export const routes: Routes = [
     {
         path: 'login',
         component: Login
+    },
+    {
+        path: 'doctor-dashboard',
+        component: DoctorDashboard
     }
 ];
