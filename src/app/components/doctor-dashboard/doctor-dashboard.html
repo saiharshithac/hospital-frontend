@@ -1,0 +1,127 @@
+<div class="dashboard-container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2>Dashboard</h2>
+    <ul>
+      <li [class.active]="activeSection === 'appointments'" (click)="showSection('appointments')">
+        <i class="fa fa-calendar"></i> Appointments
+      </li>
+      <li [class.active]="activeSection === 'patients'" (click)="showSection('patients')">
+        <i class="fa fa-user"></i> Patients
+      </li>
+      <li [class.active]="activeSection === 'notifications'" (click)="showSection('notifications')">
+        <i class="fa fa-bell"></i> Notifications
+      </li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="topbar">
+      <span class="doctor-info"><i class="fa fa-user-md"></i> {{persons?.firstName}} {{persons?.lastName}} </span>
+    </div>
+
+    <div class="details">
+      <!-- Upcoming Appointments -->
+      <div *ngIf="activeSection === 'appointments'" class="appointments">
+        <h3>Upcoming Appointments</h3>
+
+        <div class="table-wrapper">
+          <table class="appointments-table">
+            <thead>
+              <tr>
+                <th>Appointment ID</th>
+                <th>Patient Name</th>
+                <th>Time Slot</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let appointment of appointments?.$values"
+                [class.selected]="selectedAppointmentId === appointment.appointmentId"
+                class="appointment-card"
+              >
+                <td>{{ appointment.appointmentId }}</td>
+                 <td>{{appointment.firstName}} {{appointment.lastName}}</td>
+                <td>{{ appointment.timeSlotId }}</td>
+                <td>{{ appointment.appointmentDate }}</td>
+                <td>{{ appointment.status }}</td>
+                <td>
+                  <button (click)="Cancel(appointment.appointmentId)">Cancel</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Patients -->
+
+    <div *ngIf="activeSection === 'patients'" class="patients">
+      <div *ngIf="!selectedPatient">
+        <div *ngFor="let p of patients?.$values" class="patient-card">
+          <h4>{{ p.firstName }} {{ p.lastName }}</h4>
+          <p>Gender : {{ p.gender }}</p>
+          <p>Phone No : {{ p.phoneNo }}</p>
+          <div class="patient-actions">
+            <button (click)="getHistory(p.personId)">Medical History</button>
+            <button (click)="openTreatmentForm(p)">Update Treatment</button>
+          </div>
+          <br /><br />
+        </div>
+      </div>
+    </div>
+
+    <!-- Treatment Done -->
+    <div *ngIf="selectedPatient" class="treatment-form">
+      <form #treatmentForm="ngForm">
+        <h3>Treatment for {{ selectedPatient.firstName }} {{ selectedPatient.lastName }}</h3>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>DoctorId</label>
+            <input type="number" name="DoctorId" [(ngModel)]="treatmentData.DoctorId" readonly />
+          </div>
+          <div class="form-group">
+            <label>PatientId</label>
+            <input type="number" name="PatientId" [(ngModel)]="treatmentData.PatientId" readonly />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>FollowUp</label>
+            <input type="date" name="FollowUp" [(ngModel)]="treatmentData.FollowUp" />
+          </div>          
+        </div>
+
+        <div class="form-group">
+          <label>Dtype</label>
+          <input type="text" name="Dtype" [(ngModel)]="treatmentData.Dtype" />
+        </div>
+
+        <div class="form-group">
+          <label>Description</label>
+          <input type="text" name="Description" [(ngModel)]="treatmentData.Description" />
+        </div>
+
+        <div class="form-group">
+          <label>Prescription</label>
+          <input type="text" name="Prescription" [(ngModel)]="treatmentData.Prescription" />
+        </div>
+        <div class="button-row">
+          <button (click)="submitTreatment()">Submit</button>
+          <button (click)="cancel()">Cancel</button>
+        </div>
+      </form>
+    </div>
+    <!-- Notification -->
+    <div *ngIf="activeSection === 'notifications'">
+      <app-appointment-notifications></app-appointment-notifications>
+    </div>
+  </main>
+</div>
