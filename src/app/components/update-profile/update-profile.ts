@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { CommonModule,NgIf } from '@angular/common';
+import { CommonModule,NgIf,NgFor } from '@angular/common';
 import { Header } from "../../header/header";
 import { ActivatedRoute, Router } from '@angular/router';
 import { PersonService } from '../../services/person-service';
 import { DoctorService } from '../../services/doctor-service';
 import { AppointmentService } from '../../services/appointment-service';
+import { TreatmentService } from '../../services/treatment-service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-update-profile',
@@ -18,7 +19,10 @@ export class UpdateProfile implements OnInit{
   personData:any={};
   roleSpecificData: any = {};
   appointments: any[] = [];
-  constructor(private route: ActivatedRoute,private router:Router, private personService:PersonService,private doctorService:DoctorService,private appservice:AppointmentService) {}
+  treatments: any[] = [];
+  showAppointments: boolean = false;
+showTreatments: boolean = false;
+  constructor(private route: ActivatedRoute,private yourService:TreatmentService,private router:Router, private personService:PersonService,private doctorService:DoctorService,private appservice:AppointmentService) {}
 //   ngOnInit(): void {
 //   const storedId = localStorage.getItem('personId');
 //   if (storedId && !isNaN(+storedId)) {
@@ -78,6 +82,8 @@ ngOnInit(): void {
 
     
   }
+
+
  changeStatus(appt: any, newStatus: string) {
   if (newStatus === 'Cancelled' || newStatus === 'Update') {
     this.appservice.cancelAppointment(appt.appointmentId).subscribe({
@@ -104,17 +110,43 @@ ngOnInit(): void {
 
  
 }
+
 getAppointments() {
-  const personId = this.personId;
-  this.appservice.AppointmentsByPersonId(personId).subscribe({
-    next: (res: any) => {
-      this.appointments = res.$values || []; // Extract actual array
-      console.log('Appointments loaded:', this.appointments);
-    },
-    error: (err) => {
-      console.error('Error fetching appointments:', err);
-    }
-  });
+  this.showAppointments = !this.showAppointments;
+
+  // Fetch only if showing and data not already loaded
+  if (this.showAppointments && this.appointments.length === 0) {
+    const personId = this.personId;
+    this.appservice.AppointmentsByPersonId(personId).subscribe({
+      next: (res: any) => {
+        this.appointments = res?.$values || [];
+        console.log('Appointments loaded:', this.appointments);
+      },
+      error: (err) => {
+        console.error('Error fetching appointments:', err);
+        this.appointments = [];
+      }
+    });
+  }
+}
+
+getTreatmentHistory() {
+  this.showTreatments = !this.showTreatments;
+
+  // Fetch only if showing and data not already loaded
+  if (this.showTreatments && this.treatments.length === 0) {
+    const patientId = this.personData.personId;
+    this.yourService.getTreatmentHistory(patientId).subscribe({
+      next: (res: any) => {
+        console.log('Treatment history response:', res);
+        this.treatments = res?.$values || [];
+      },
+      error: (err) => {
+        console.error('Error fetching treatment history:', err);
+        this.treatments = [];
+      }
+    });
+  }
 }
 
     onUpdate() {
