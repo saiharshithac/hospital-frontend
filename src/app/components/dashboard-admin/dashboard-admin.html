@@ -77,16 +77,16 @@
   <thead>
     <tr>
       <th>Date</th>
-      <th>Doctor ID</th>
-      <th>Patient ID</th>
+      <th>Doctors</th>
+      <th>Patients</th>
       <th>Status</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let appt of appointments">
       <td>{{appt.appointmentDate}}</td>
-      <td>{{appt.doctorId}}</td>
-      <td>{{appt.patientId}}</td>
+      <td>{{appt.doctorName}}</td>
+      <td>{{appt.patientName}}</td>
       <td>{{appt.status}}</td>
     </tr>
   </tbody>

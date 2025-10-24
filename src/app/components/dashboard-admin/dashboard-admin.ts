@@ -20,7 +20,7 @@ patients:any[]=[];
 appointments:any[]=[];
 activeList: string | null = null;
 showDetails:boolean=false;
-
+id :any;
  constructor(private personService:PersonService,private appointmentService:AppointmentService,private router: Router){}
  ngOnInit(){
   
@@ -63,20 +63,45 @@ showDetails:boolean=false;
     console.log('mapped patients: ',this.patients)
   })
  }
- loadAppointments(){
-   this.appointmentService.getAllAppointments().subscribe((res:any)=>{
-    console.log('api response :',res);
-    const appointmentsArray=res.$values || res || [];
-    this.appointments=appointmentsArray.map((a:any)=>({
-      appointmentDate:a.appointmentDate,
-      doctorId:a.doctorId,
-      patientId:a.patientId,
-      status:a.status
-    }));
-    console.log('mapped patients: ',this.patients)
-  })
+ loadAppointments() {
+  this.appointmentService.getAllAppointments().subscribe((res: any) => {
+    console.log('api response :', res);
+    const appointmentsArray = res.$values || res || [];
 
- }
+    this.appointments = [];
+
+    appointmentsArray.forEach((a: any) => {
+      const appointment = {
+        appointmentDate: a.appointmentDate,
+        doctorId: a.doctorId,
+        patientId: a.patientId,
+        status: a.status,
+        doctorName: '',
+        patientName: ''
+      };
+
+      // Fetch doctor name
+      this.personService.getPersonById(a.doctorId).subscribe((docRes: any) => {
+        appointment.doctorName = `${docRes.firstName} ${docRes.lastName}`;
+      });
+
+      // Fetch patient name
+      this.personService.getPersonById(a.patientId).subscribe((patRes: any) => {
+        appointment.patientName = `${patRes.firstName} ${patRes.lastName}`;
+      });
+
+      this.appointments.push(appointment);
+    });
+
+    console.log('Mapped appointments:', this.appointments);
+  });
+}
+//  loadPatientsById(int id){
+//     this.personService.getPersonById(id).subscribe((res:any)=>{
+//       console.log('api response :',res);
+//       return `${res.firstName} ${res.lastName}`;
+//     });
+//   }
  toggleDetails(){
   this.showDetails=!this.showDetails;
  }
