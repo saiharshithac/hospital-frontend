@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PersonService } from '../../services/person-service';
 import { AppointmentService } from '../../services/appointment-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -20,7 +21,7 @@ appointments:any[]=[];
 activeList: string | null = null;
 showDetails:boolean=false;
 
- constructor(private personService:PersonService,private appointmentService:AppointmentService){}
+ constructor(private personService:PersonService,private appointmentService:AppointmentService,private router: Router){}
  ngOnInit(){
   
   this.personService.getDoctorsCount().subscribe(count =>{
@@ -105,6 +106,12 @@ showDetails:boolean=false;
     }
    }
  }
- 
+ logOut(): void {
+    localStorage.removeItem('personId');
+    localStorage.removeItem('role');
+    localStorage.removeItem('token');
+    this.router.navigate(['/homepage']);
+    console.log('User logged out and redirected to login page.');
+  }
 
 }

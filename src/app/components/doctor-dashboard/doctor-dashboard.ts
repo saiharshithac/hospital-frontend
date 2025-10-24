@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { AppointmentNotifications } from "../appointment-notifications/appointment-notifications";
 import { TreatmentService } from '../../services/treatment-service';
 import { MedicalHistory } from '../../services/medical-history';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-doctor-dashboard',
@@ -29,7 +30,8 @@ export class DoctorDashboard implements OnInit {
     private appointmentService: AppointmentService,
     private treatmentService: TreatmentService,
     private medicalhistory: MedicalHistory,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -136,7 +138,14 @@ export class DoctorDashboard implements OnInit {
       },
     })
   }
- 
+  
+  logOut(): void {
+    localStorage.removeItem('personId');
+    localStorage.removeItem('role');
+    localStorage.removeItem('token');
+    this.router.navigate(['/homepage']);
+    console.log('User logged out and redirected to login page.');
+  }
 }
  
  

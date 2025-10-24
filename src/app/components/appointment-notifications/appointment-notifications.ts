@@ -29,7 +29,7 @@ export class AppointmentNotifications implements OnInit {
     if (this.personId !== null) {
       this.notificationService.getNotifications(this.personId).subscribe({
         next: (data) => {
-          this.notifications = data;
+          this.notifications = data.$values.reverse();
           console.log('Received notifications:', data);
         },
         error: (err) => console.error('Error fetching notifications:', err),
