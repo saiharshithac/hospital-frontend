@@ -40,9 +40,7 @@ export const routes: Routes = [
     
     {
         path:"register",
-        component:RegisterForm,
-        // canActivate:[RoleGuard]
-        // data:{roles:['Patient','Doctor']}
+        component:RegisterForm,      
     },
     {
         path:"patient",
@@ -58,25 +56,22 @@ export const routes: Routes = [
     },
     {
         path:"appointment",
-        component:Appointment
+        component:Appointment,
+        canActivate:[RoleGuard],
+        data:{roles:['Patient']}
     },
     {
         path:"doctors",
-        component:Doctors
+        component:Doctors,
+        canActivate:[RoleGuard],
+        data:{roles:['Patient']}
     },
-    {
-        path:'',
-        component:Header
-    },
-    {
-        path:'',
-        component:Footer
-    },
+   
     {
         path:"homepage",
         component:Homepage,
         canActivate:[RoleGuard],
-        data:{roles:['Patient','Doctor','Admin']}
+        data:{roles:['Patient','Doctor','Staff']}
     },
     {
         path:"aboutus",
@@ -103,6 +98,8 @@ export const routes: Routes = [
     },
     {
         path: 'doctor-dashboard',
-        component: DoctorDashboard
+        component: DoctorDashboard,
+        canActivate: [RoleGuard],
+        data: { roles: ['Doctor'] } 
     }
 ];
