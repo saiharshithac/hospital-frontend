@@ -32,7 +32,8 @@ export class Appointment implements OnInit{
   private doctorService: DoctorService,
   private timeslotService: TimeslotService,
   private appointmentService: AppointmentService,
-  private route: ActivatedRoute
+  private route: ActivatedRoute,
+  private router: Router
   ) {}
   
   ngOnInit(): void{
@@ -118,6 +119,7 @@ export class Appointment implements OnInit{
         next: (response: any) => {
           console.log('Appointment created successfully:', response);
           alert('Appointment booked successfully!');
+          this.router.navigate(['/update'])
         },
         error: (error: any) => {
           console.error('Error creating appointment:', error);
