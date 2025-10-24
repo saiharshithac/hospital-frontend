@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
+ 
 @Injectable({
   providedIn: 'root'
 })
@@ -21,15 +21,15 @@ export class DoctorService {
   return this.http.post(url, dto);
   }
 updateSpeciality(doctorId: number, dto: any): Observable<any> {
-  const token = localStorage.getItem('token');
-  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
+  // const token = localStorage.getItem('token');
+  // const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+ 
   const url = `${this.apiUrl}/${doctorId}/updateSpeciality`;
-  return this.http.put(url, dto, { headers });
+  return this.http.put(url, dto);
 }
-
+ 
   GetDoctorByPersonId(personId: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/GetDoctorByPersonId?personid=${personId}`);
   }
-
+ 
 }
