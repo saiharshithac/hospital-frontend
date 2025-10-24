@@ -24,6 +24,23 @@ export class DoctorDashboard implements OnInit {
   patients: any = null;
   persons: any = null;
   history: any = null;
+  getTimeSlotLabel(slotId: string): string {
+  const timeSlotMap: { [key: string]: string } = {
+    slot1: '09:00 AM',
+    slot2: '09:30 AM',
+    slot3: '10:00 AM',
+    slot4: '10:30 AM',
+    slot5: '11:00 AM',
+    slot6: '11:30 AM',
+    slot7: '13:00 PM',
+    slot8: '13:30 PM',
+    slot9: '14:00 PM',
+    slot10: '14:30 PM'
+  };
+
+  return timeSlotMap[slotId] || 'Unknown Slot';
+}
+
 
   constructor(
     private personService: PersonService,
