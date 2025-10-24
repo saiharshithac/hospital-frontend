@@ -27,15 +27,12 @@ export const routes: Routes = [
     {
         path: 'doctor',
         component:DoctorSpecialization,
-        canActivate:[RoleGuard],
-        data:{roles:['Doctor']}
         },
     
     {
         path:"doctor-display",
         component:DoctorsDisplay,
-        canActivate:[RoleGuard],
-        data:{roles:['Patient','Doctor']}
+        
     },
     
     {
@@ -45,8 +42,7 @@ export const routes: Routes = [
     {
         path:"patient",
         component:PatientMedical
-        // canActivate:[RoleGuard],
-        // data:{roles:['Patient','Doctor']}
+        
     },
     {
         path:"update",
@@ -70,14 +66,12 @@ export const routes: Routes = [
     {
         path:"homepage",
         component:Homepage,
-        canActivate:[RoleGuard],
-        data:{roles:['Patient','Doctor','Staff']}
+        
     },
     {
         path:"aboutus",
         component:Aboutus,
-        canActivate:[RoleGuard],
-        data:{roles:['Patient','Doctor']}
+        
     },
     {
         path:"appointment-notifications",
