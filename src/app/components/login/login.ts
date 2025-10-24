@@ -5,9 +5,10 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Header } from "../../header/header";
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../services/auth-service';
+import { Footer } from "../../footer/footer";
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, Header, RouterLink],
+  imports: [FormsModule, Header, RouterLink, Footer],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
