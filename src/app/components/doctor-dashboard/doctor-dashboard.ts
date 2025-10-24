@@ -140,21 +140,21 @@ export class DoctorDashboard implements OnInit {
     this.selectedPatient = null;
   }
  
-  getHistory(personId : any){
-    this.medicalhistory.GetMedicalHistory(personId).subscribe({
-      next: (blob) =>{
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'medical-history.docx';
-      a.click();
-      window.URL.revokeObjectURL(url);
-      },
-      error: (err) => {
-        console.error('Error loading medicalHistory',err);
-      },
-    })
-  }
+  getHistory(personId: any) {
+  this.medicalhistory.GetMedicalHistory(personId).subscribe({
+    next: (blob: Blob) => {
+      const file = new Blob([blob], { type: 'application/pdf' });
+      const fileURL = URL.createObjectURL(file);
+      window.open(fileURL, '_blank');
+    },
+    error: (err) => {
+      console.error('Error loading medical history:', err);
+      alert('Unable to load medical history.');
+    },
+  });
+}
+
+
   
   logOut(): void {
     localStorage.removeItem('personId');
