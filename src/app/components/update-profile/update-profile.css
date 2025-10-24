@@ -106,6 +106,95 @@ button:hover {
 .logout-btn i {
   font-size: 18px;
 }
+.treatment-container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.treatment-container h4 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a73e8; /* Blue header like screenshot */
+  margin-bottom: 15px;
+}
+
+.treatment-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.treatment-table th,
+.treatment-table td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.treatment-table thead {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.treatment-table th {
+  font-weight: 600;
+  color: #333;
+}
+
+.treatment-table tbody tr {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.treatment-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.btn-primary {
+  background-color: #1a73e8;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.btn-primary:hover {
+  background-color: #155ab6;
+}
+
+.no-treatments {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #666;
+}
+.scrollable-section {
+  max-height: 400px; /* Adjust height as needed */
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #f9f9f9;
+}
+
+/* Optional: make tables responsive */
+.appointments-table,
+.treatment-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.appointments-table th,
+.appointments-table td,
+.treatment-table th,
+.treatment-table td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
  
 .profile-header {
   display: flex;

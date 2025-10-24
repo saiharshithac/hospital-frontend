@@ -2,7 +2,7 @@
 <div class="background-image">
     <div class="profile-container">
     <div class="profile-header">
-  <h2>{{ personData.firstName }}</h2>
+  <h2>{{ personData.firstName }} {{personData.lastName}}</h2>
   <button class="logout-btn" (click)="onLogOut()">
     <i class="fa fa-lock"></i> Logout
   </button>
@@ -87,16 +87,17 @@
     </div>
     <div class="button-group">
     <button type="submit" >Update Profile</button>
-    </div>
+    </div><div *ngIf="personData.role?.toLowerCase() !== 'doctor'">
 <button type="button" class="btn-primary" (click)="getAppointments()">Your Appointments</button>
+<div *ngIf="showAppointments">
 
-<div *ngIf="appointments && appointments.length > 0" class="appointments-container">
+<div *ngIf="appointments && appointments.length > 0" class="appointments-container scrollable-section">
   <h4>Upcoming Appointments</h4>
   <table class="appointments-table">
     <thead>
       <tr>
         <th>Appointment ID</th>
-        <th>Patient Name</th>
+        <th>Name</th>
         <th>Time Slot</th>
         <th>Date</th>
         <th>Status</th>
@@ -128,6 +129,43 @@
 <div *ngIf="appointments && appointments.length === 0" class="no-appointments">
   <p>No appointments found.</p>
 </div>
+</div>
+</div>
     </form>
+    <div *ngIf="personData.role?.toLowerCase() !== 'doctor'">
+    <button type="button" class="btn-primary" (click)="getTreatmentHistory()">View Treatment History</button>
+    <div *ngIf="showTreatments">
+
+    <div *ngIf="treatments && treatments.length > 0" class="treatment-container scrollable-section">
+  <h4>Treatment History</h4>
+  <table class="treatment-table">
+    <thead>
+      <tr>
+        <th>Treatment ID</th>
+        <th>Disease Type</th>
+        <th>Description</th>
+        <th>Prescription</th>
+        <th>Follow-Up Date</th>
+        <th>Created At</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let t of treatments">
+        <td>{{ t.tid }}</td>
+        <td>{{ t.dtype }}</td>
+        <td>{{ t.description }}</td>
+        <td>{{ t.prescription }}</td>
+        <td>{{ t.followUp | date:'dd-MM-yyyy' }}</td>
+        <td>{{ t.createdAt | date:'dd-MM-yyyy HH:mm' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="treatments && treatments.length === 0" class="no-treatments">
+  <p>No treatment records found.</p>
+</div>
+</div>
+    </div>
     </div>
     </div>

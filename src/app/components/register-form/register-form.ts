@@ -32,6 +32,11 @@ export class RegisterForm {
 
   onSubmit(form: NgForm) {
     if (form.valid) {
+      
+if (this.formData.role === 'Admin') {
+      this.formData.role = 'Staff';
+    }
+
       console.log('Form Data:', this.formData);
       console.log(form);
       this.personService.registerPerson(this.formData).subscribe({

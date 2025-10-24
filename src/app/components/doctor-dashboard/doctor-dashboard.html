@@ -21,8 +21,11 @@
   <!-- Main Content -->
   <main class="main-content">
     <div class="topbar">
-      <span class="doctor-info"><i class="fa fa-user-md"></i> {{persons?.firstName}} {{persons?.lastName}} </span>
-    </div>
+  <span class="doctor-info">
+    <i class="fa fa-user-md"></i>
+    <a routerLink="/update">{{ persons?.firstName }} {{ persons?.lastName }}</a>
+  </span>
+</div>
 
     <div class="details">
       <!-- Upcoming Appointments -->

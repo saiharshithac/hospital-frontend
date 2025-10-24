@@ -16,7 +16,7 @@ export class PatientMedical {
   formData = {
     patientId: '',
     dtype: '',
-    tid:3,
+    tid:1
 
   };
 
