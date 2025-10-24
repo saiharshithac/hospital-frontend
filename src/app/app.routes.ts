@@ -41,14 +41,14 @@ export const routes: Routes = [
     {
         path:"register",
         component:RegisterForm,
-        canActivate:[RoleGuard],
-        data:{roles:['Patient','Doctor']}
+        // canActivate:[RoleGuard]
+        // data:{roles:['Patient','Doctor']}
     },
     {
         path:"patient",
-        component:PatientMedical,
-        canActivate:[RoleGuard],
-        data:{roles:['Patient','Doctor']}
+        component:PatientMedical
+        // canActivate:[RoleGuard],
+        // data:{roles:['Patient','Doctor']}
     },
     {
         path:"update",
