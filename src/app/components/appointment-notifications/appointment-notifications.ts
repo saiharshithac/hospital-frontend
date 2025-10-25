@@ -2,15 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NotificationService } from '../../services/notification-service';
 import { ActivatedRoute } from '@angular/router';
+import { Header } from '../../header/header';
+import { Input } from '@angular/core';
 
 @Component({
   selector: 'app-appointment-notifications',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,Header],
   templateUrl: './appointment-notifications.html',
   styleUrl: './appointment-notifications.css',
 })
 export class AppointmentNotifications implements OnInit {
+  @Input() hideHeader: boolean = false;
   personId: number | null = null;
   notifications: any = null;
 
